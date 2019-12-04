@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% import 'macros/form.html' as form %}
+
+{% block content %}
+    <div class="wide-wrapper">
+        <section class="inner-white-bg">
+            <div class="container cabinet">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h1>
+                            Персональный кабинет
+                        </h1>
+                    </div>
+                    <div class="col-md-12">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-success">{{ messages | join('. ') }}</div>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="col-md-9">
+                        <form action="" method="post" enctype="application/x-www-form-urlencoded" data-active-form>
+                            {{ change_user_info_form.csrf_token }}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Персональные данные</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.render_field(change_user_info_form.name) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.render_field(change_user_info_form.phone) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.render_field(change_user_info_form.address) }}
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="submit" class="btn btn-default ss-btn" data-button="submit" name="user_info_btn" value="Сохранить изменения">
+                                </div>
+                            </div>
+                        </form>
+
+                        <hr>
+
+                        <form action="" method="post" enctype="application/x-www-form-urlencoded" data-active-form>
+                            {{ change_password_form.csrf_token }}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Смена пароля</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.render_field(change_password_form.old_password) }}
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.render_field(change_password_form.new_password) }}
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.render_field(change_password_form.new_password_confirm) }}
+                                </div>
+                                <div class="clearfix">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="submit" class="btn btn-default ss-btn" data-button="submit" name="password_change_btn" value="Сменить пароль">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

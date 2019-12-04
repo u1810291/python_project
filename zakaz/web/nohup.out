@@ -1,0 +1,1076 @@
+[2017-06-21 08:28:38 +0000] [9389] [INFO] Starting gunicorn 19.7.1
+[2017-06-21 08:28:38 +0000] [9389] [INFO] Listening at: http://127.0.0.1:9000 (9389)
+[2017-06-21 08:28:38 +0000] [9389] [INFO] Using worker: sync
+[2017-06-21 08:28:38 +0000] [9394] [INFO] Booting worker with pid: 9394
+[2017-06-21 08:29:27 +0000] [9389] [INFO] Handling signal: int
+[2017-06-21 08:29:27 +0000] [9394] [INFO] Worker exiting (pid: 9394)
+[2017-06-21 08:29:28 +0000] [9389] [INFO] Shutting down: Master
+[2017-06-21 08:31:01 +0000] [9632] [INFO] Starting gunicorn 19.7.1
+[2017-06-21 08:31:01 +0000] [9632] [INFO] Listening at: http://127.0.0.1:9000 (9632)
+[2017-06-21 08:31:01 +0000] [9632] [INFO] Using worker: sync
+[2017-06-21 08:31:01 +0000] [9657] [INFO] Booting worker with pid: 9657
+[2017-06-21 08:35:01,768] ERROR in app: Exception on /auth/signup [POST]
+Traceback (most recent call last):
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/web/zakaz/web/app/modules/auth/views.py", line 61, in signup
+    db.session.commit()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 906, in commit
+    self.transaction.commit()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 461, in commit
+    self._prepare_impl()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 441, in _prepare_impl
+    self.session.flush()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2171, in flush
+    self._flush(objects)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2291, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2255, in _flush
+    flush_context.execute()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 389, in execute
+    rec.execute(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 548, in execute
+    uow
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 835, in _emit_insert_statements
+    execute(statement, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 945, in execute
+    return meth(self, multiparams, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 263, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1053, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1189, in _execute_context
+    context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1402, in _handle_dbapi_exception
+    exc_info
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1182, in _execute_context
+    context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 470, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (psycopg2.IntegrityError) null value in column "name" violates not-null constraint
+ [SQL: 'INSERT INTO "user" (created_at, updated_at, name, email, password, address, phone, is_admin) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %(name)s, %(email)s, %(password)s, %(address)s, %(phone)s, %(is_admin)s) RETURNING "user".id'] [parameters: {'name': None, 'phone': None, 'is_admin': False, 'address': None, 'password': 'pbkdf2:sha256:50000$GTpeTYp5$f84b2ad095e7038494e62c11875b6d628ddcd916ccf73cf50a37e22b62631615', 'email': u'email@mail.ru'}]
+[2017-06-21 10:52:35 +0000] [9632] [CRITICAL] WORKER TIMEOUT (pid:9657)
+[2017-06-21 10:52:35 +0000] [9657] [INFO] Worker exiting (pid: 9657)
+[2017-06-21 10:52:35 +0000] [13554] [INFO] Booting worker with pid: 13554
+[2017-06-21 11:13:09 +0000] [15671] [INFO] Starting gunicorn 19.7.1
+[2017-06-21 11:13:09 +0000] [15671] [INFO] Listening at: http://127.0.0.1:9000 (15671)
+[2017-06-21 11:13:09 +0000] [15671] [INFO] Using worker: sync
+[2017-06-21 11:13:09 +0000] [15690] [INFO] Booting worker with pid: 15690
+[2017-06-21 11:20:47 +0000] [15671] [CRITICAL] WORKER TIMEOUT (pid:15690)
+[2017-06-21 11:20:47 +0000] [15690] [INFO] Worker exiting (pid: 15690)
+[2017-06-21 11:20:48 +0000] [15730] [INFO] Booting worker with pid: 15730
+[2017-06-21 11:21:21 +0000] [15671] [CRITICAL] WORKER TIMEOUT (pid:15730)
+[2017-06-21 11:21:21 +0000] [15730] [INFO] Worker exiting (pid: 15730)
+[2017-06-21 11:21:22 +0000] [15736] [INFO] Booting worker with pid: 15736
+[2017-06-21 11:21:55 +0000] [15671] [CRITICAL] WORKER TIMEOUT (pid:15736)
+[2017-06-21 11:21:55 +0000] [15736] [INFO] Worker exiting (pid: 15736)
+[2017-06-21 11:21:56 +0000] [15743] [INFO] Booting worker with pid: 15743
+[2017-06-21 11:23:19 +0000] [15811] [INFO] Starting gunicorn 19.7.1
+[2017-06-21 11:23:19 +0000] [15811] [INFO] Listening at: http://127.0.0.1:9000 (15811)
+[2017-06-21 11:23:19 +0000] [15811] [INFO] Using worker: sync
+[2017-06-21 11:23:19 +0000] [15824] [INFO] Booting worker with pid: 15824
+[2017-06-22 11:33:04 +0000] [15824] [ERROR] Error handling request /auth/signup?return_to=%2Fservices%2Fpurchase%2Fuser-info
+Traceback (most recent call last):
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 135, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 176, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/web/zakaz/web/app/modules/auth/views.py", line 61, in signup
+    db.session.commit()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 906, in commit
+    self.transaction.commit()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 461, in commit
+    self._prepare_impl()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 441, in _prepare_impl
+    self.session.flush()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2171, in flush
+    self._flush(objects)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2291, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2255, in _flush
+    flush_context.execute()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 389, in execute
+    rec.execute(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 548, in execute
+    uow
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 835, in _emit_insert_statements
+    execute(statement, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 945, in execute
+    return meth(self, multiparams, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 263, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1053, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1189, in _execute_context
+    context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1402, in _handle_dbapi_exception
+    exc_info
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1182, in _execute_context
+    context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 470, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (psycopg2.IntegrityError) null value in column "name" violates not-null constraint
+ [SQL: 'INSERT INTO "user" (created_at, updated_at, name, email, password, address, phone, is_admin) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %(name)s, %(email)s, %(password)s, %(address)s, %(phone)s, %(is_admin)s) RETURNING "user".id'] [parameters: {'name': None, 'phone': None, 'is_admin': False, 'address': None, 'password': 'pbkdf2:sha256:50000$LLe4wlI5$daa30983f453578cc9ea5aa0fb878c65b9c58bdce8109ce9b198b18f7655487b', 'email': u'zoom.up.zoom@gmail.com'}]
+[2017-06-22 11:33:44 +0000] [15824] [ERROR] Error handling request /auth/signup?return_to=%2Fservices%2Fpurchase%2Fuser-info
+Traceback (most recent call last):
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 135, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 176, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/web/zakaz/web/app/modules/auth/views.py", line 61, in signup
+    db.session.commit()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 906, in commit
+    self.transaction.commit()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 461, in commit
+    self._prepare_impl()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 441, in _prepare_impl
+    self.session.flush()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2171, in flush
+    self._flush(objects)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2291, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2255, in _flush
+    flush_context.execute()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 389, in execute
+    rec.execute(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 548, in execute
+    uow
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 835, in _emit_insert_statements
+    execute(statement, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 945, in execute
+    return meth(self, multiparams, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 263, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1053, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1189, in _execute_context
+    context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1402, in _handle_dbapi_exception
+    exc_info
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1182, in _execute_context
+    context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 470, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (psycopg2.IntegrityError) null value in column "name" violates not-null constraint
+ [SQL: 'INSERT INTO "user" (created_at, updated_at, name, email, password, address, phone, is_admin) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, %(name)s, %(email)s, %(password)s, %(address)s, %(phone)s, %(is_admin)s) RETURNING "user".id'] [parameters: {'name': None, 'phone': None, 'is_admin': False, 'address': None, 'password': 'pbkdf2:sha256:50000$bLfN4QmZ$18ade3fc289c0e8086474319de51038839c270a3487fdf293dd1f91154fe3679', 'email': u'zoom.up.zoom@gmail.com'}]
+[2017-06-22 12:06:44 +0000] [31744] [INFO] Starting gunicorn 19.7.1
+[2017-06-22 12:06:44 +0000] [31744] [INFO] Listening at: http://127.0.0.1:9000 (31744)
+[2017-06-22 12:06:44 +0000] [31744] [INFO] Using worker: sync
+[2017-06-22 12:06:44 +0000] [31769] [INFO] Booting worker with pid: 31769
+[2017-06-24 07:19:49 +0000] [31744] [CRITICAL] WORKER TIMEOUT (pid:31769)
+[2017-06-24 07:27:18 +0000] [31769] [INFO] Worker exiting (pid: 31769)
+[2017-06-24 07:37:28 +0000] [9712] [INFO] Booting worker with pid: 9712
+[2017-06-24 07:39:33 +0000] [31744] [CRITICAL] WORKER TIMEOUT (pid:9712)
+[2017-06-24 07:39:48 +0000] [9712] [INFO] Worker exiting (pid: 9712)
+[2017-06-24 07:39:53 +0000] [9726] [INFO] Booting worker with pid: 9726
+[2017-06-24 07:41:53 +0000] [31744] [CRITICAL] WORKER TIMEOUT (pid:9726)
+[2017-06-24 07:42:05 +0000] [9744] [INFO] Booting worker with pid: 9744
+[2017-06-24 08:24:06 +0000] [31744] [CRITICAL] WORKER TIMEOUT (pid:9744)
+[2017-06-24 08:25:20 +0000] [9744] [INFO] Worker exiting (pid: 9744)
+[2017-06-24 08:36:58 +0000] [9996] [INFO] Booting worker with pid: 9996
+[2017-06-24 08:36:58 +0000] [31744] [CRITICAL] WORKER TIMEOUT (pid:9996)
+[2017-06-24 08:36:59 +0000] [10015] [INFO] Booting worker with pid: 10015
+[2017-06-24 10:04:32 +0000] [5875] [INFO] Starting gunicorn 19.7.1
+[2017-06-24 10:04:32 +0000] [5875] [INFO] Listening at: http://127.0.0.1:9000 (5875)
+[2017-06-24 10:04:32 +0000] [5875] [INFO] Using worker: sync
+[2017-06-24 10:04:32 +0000] [5900] [INFO] Booting worker with pid: 5900
+[2017-06-24 10:04:36 +0000] [5900] [ERROR] Error handling request /
+Traceback (most recent call last):
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 135, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 176, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/web/zakaz/web/app/modules/static/views.py", line 8, in index
+    return render_template('modules/static/index.html')
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/templating.py", line 132, in render_template
+    ctx.app.update_template_context(context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 765, in update_template_context
+    context.update(func())
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask_login.py", line 891, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask_login.py", line 858, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask_login.py", line 389, in _load_user
+    return self.reload_user()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask_login.py", line 351, in reload_user
+    user = self.user_callback(user_id)
+  File "/home/web/zakaz/web/app/__init__.py", line 48, in load_user
+    return User.query.get(int(user_id))
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 864, in get
+    return self._get_impl(ident, loading.load_on_ident)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 897, in _get_impl
+    return fallback_fn(self, key)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/loading.py", line 223, in load_on_ident
+    return q.one()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2814, in one
+    ret = self.one_or_none()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2784, in one_or_none
+    ret = list(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2855, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2876, in _execute_and_instances
+    close_with_result=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2885, in _get_bind_args
+    **kw
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2867, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 998, in connection
+    execution_options=execution_options)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1003, in _connection_for_bind
+    engine, execution_options)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 403, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2112, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2151, in _wrap_pool_connect
+    e, dialect, self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1465, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2147, in _wrap_pool_connect
+    return fn()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 387, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 766, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 516, in checkout
+    rec = pool._do_get()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1138, in _do_get
+    self._dec_overflow()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1135, in _do_get
+    return self._create_connection()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 333, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 461, in __init__
+    self.__connect(first_connect_check=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 651, in __connect
+    connection = pool._invoke_creator(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 105, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 393, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/psycopg2/__init__.py", line 164, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, async=async)
+OperationalError: (psycopg2.OperationalError) could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+could not create socket: Address family not supported by protocol
+
+[2017-06-24 10:04:36 +0000] [5900] [ERROR] Error handling request /favicon.ico
+Traceback (most recent call last):
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 135, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/gunicorn/workers/sync.py", line 176, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 2000, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1991, in wsgi_app
+    response = self.make_response(self.handle_exception(e))
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1567, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1988, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1641, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1544, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1639, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/flask/app.py", line 1625, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/web/zakaz/web/app/modules/page/views.py", line 10, in render
+    page = Page.query.filter_by(slug=slug).first()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2755, in first
+    ret = list(self[0:1])
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2547, in __getitem__
+    return list(res)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2855, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2876, in _execute_and_instances
+    close_with_result=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2885, in _get_bind_args
+    **kw
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 2867, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 998, in connection
+    execution_options=execution_options)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1003, in _connection_for_bind
+    engine, execution_options)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 403, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2112, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2151, in _wrap_pool_connect
+    e, dialect, self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1465, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 2147, in _wrap_pool_connect
+    return fn()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 387, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 766, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 516, in checkout
+    rec = pool._do_get()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1138, in _do_get
+    self._dec_overflow()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 1135, in _do_get
+    return self._create_connection()
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 333, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 461, in __init__
+    self.__connect(first_connect_check=True)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 651, in __connect
+    connection = pool._invoke_creator(self)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 105, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 393, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/web/zakaz/web/venv/local/lib/python2.7/site-packages/psycopg2/__init__.py", line 164, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, async=async)
+OperationalError: (psycopg2.OperationalError) could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+could not create socket: Address family not supported by protocol
+
+[2017-06-24 10:16:48 +0000] [7817] [INFO] Starting gunicorn 19.7.1
+[2017-06-24 10:16:48 +0000] [7817] [INFO] Listening at: http://127.0.0.1:9000 (7817)
+[2017-06-24 10:16:48 +0000] [7817] [INFO] Using worker: sync
+[2017-06-24 10:16:48 +0000] [7836] [INFO] Booting worker with pid: 7836
+[2017-06-24 12:28:04 +0000] [10036] [INFO] Booting worker with pid: 10036
+[2017-06-24 12:28:04 +0000] [7817] [INFO] Handling signal: hup
+[2017-06-24 12:28:04 +0000] [7817] [INFO] Hang up: Master
+[2017-06-24 12:28:04 +0000] [10041] [INFO] Booting worker with pid: 10041
+[2017-06-24 12:28:06 +0000] [10036] [INFO] Worker exiting (pid: 10036)
+[2017-07-24 09:05:57 +0000] [19686] [INFO] Starting gunicorn 19.7.1
+[2017-07-24 09:05:57 +0000] [19686] [INFO] Listening at: http://127.0.0.1:9000 (19686)
+[2017-07-24 09:05:57 +0000] [19686] [INFO] Using worker: sync
+[2017-07-24 09:05:57 +0000] [19711] [INFO] Booting worker with pid: 19711
+[2017-07-24 09:24:24 +0000] [19686] [INFO] Handling signal: hup
+[2017-07-24 09:24:24 +0000] [19686] [INFO] Hang up: Master
+[2017-07-24 09:24:24 +0000] [19806] [INFO] Booting worker with pid: 19806
+[2017-07-24 09:26:15 +0000] [20041] [INFO] Starting gunicorn 19.7.1
+[2017-07-24 09:26:15 +0000] [20041] [INFO] Listening at: http://127.0.0.1:9000 (20041)
+[2017-07-24 09:26:15 +0000] [20041] [INFO] Using worker: sync
+[2017-07-24 09:26:15 +0000] [20046] [INFO] Booting worker with pid: 20046
+[2017-07-24 10:03:56 +0000] [20041] [INFO] Handling signal: int
+[2017-07-24 10:03:57 +0000] [20046] [INFO] Worker exiting (pid: 20046)
+[2017-07-24 10:03:57 +0000] [20041] [INFO] Shutting down: Master
+[2017-07-25 12:03:48 +0000] [3513] [INFO] Starting gunicorn 19.7.1
+[2017-07-25 12:03:48 +0000] [3513] [INFO] Listening at: http://127.0.0.1:9000 (3513)
+[2017-07-25 12:03:48 +0000] [3513] [INFO] Using worker: sync
+[2017-07-25 12:03:48 +0000] [3518] [INFO] Booting worker with pid: 3518
+[2017-07-25 12:04:43 +0000] [3513] [INFO] Handling signal: int
+[2017-07-25 12:04:43 +0000] [3518] [INFO] Worker exiting (pid: 3518)
+[2017-07-25 12:04:43 +0000] [3513] [INFO] Shutting down: Master
+[2017-07-25 19:25:11 +0000] [9862] [INFO] Starting gunicorn 19.7.1
+[2017-07-25 19:25:11 +0000] [9862] [INFO] Listening at: http://127.0.0.1:9000 (9862)
+[2017-07-25 19:25:11 +0000] [9862] [INFO] Using worker: sync
+[2017-07-25 19:25:11 +0000] [9872] [INFO] Booting worker with pid: 9872
+[2017-07-27 08:06:14 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:9872)
+[2017-07-27 08:06:47 +0000] [9872] [INFO] Worker exiting (pid: 9872)
+[2017-07-27 08:06:47 +0000] [21749] [INFO] Booting worker with pid: 21749
+[2017-07-27 08:08:16 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21749)
+[2017-07-27 08:08:20 +0000] [21749] [INFO] Worker exiting (pid: 21749)
+[2017-07-27 08:08:23 +0000] [21754] [INFO] Booting worker with pid: 21754
+[2017-07-27 08:09:10 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21754)
+[2017-07-27 08:09:10 +0000] [21754] [INFO] Worker exiting (pid: 21754)
+[2017-07-27 08:09:13 +0000] [21760] [INFO] Booting worker with pid: 21760
+[2017-07-27 08:09:45 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21760)
+[2017-07-27 08:09:55 +0000] [21765] [INFO] Booting worker with pid: 21765
+[2017-07-27 08:10:32 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21765)
+[2017-07-27 08:10:33 +0000] [21765] [INFO] Worker exiting (pid: 21765)
+[2017-07-27 08:10:33 +0000] [21771] [INFO] Booting worker with pid: 21771
+[2017-07-27 08:11:36 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21771)
+[2017-07-27 08:11:57 +0000] [21776] [INFO] Booting worker with pid: 21776
+[2017-07-27 08:12:12 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21776)
+[2017-07-27 08:12:26 +0000] [21776] [INFO] Worker exiting (pid: 21776)
+[2017-07-27 08:12:56 +0000] [21777] [INFO] Booting worker with pid: 21777
+[2017-07-27 08:13:06 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21777)
+[2017-07-27 08:13:06 +0000] [21777] [INFO] Worker exiting (pid: 21777)
+[2017-07-27 08:13:14 +0000] [21782] [INFO] Booting worker with pid: 21782
+[2017-07-27 08:13:47 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21782)
+[2017-07-27 08:13:59 +0000] [21788] [INFO] Booting worker with pid: 21788
+[2017-07-27 08:14:37 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21788)
+[2017-07-27 08:14:46 +0000] [21788] [INFO] Worker exiting (pid: 21788)
+[2017-07-27 08:14:47 +0000] [21793] [INFO] Booting worker with pid: 21793
+[2017-07-27 08:17:45 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21793)
+[2017-07-27 08:17:52 +0000] [21793] [INFO] Worker exiting (pid: 21793)
+[2017-07-27 08:17:57 +0000] [21804] [INFO] Booting worker with pid: 21804
+[2017-07-27 08:18:46 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21804)
+[2017-07-27 08:20:09 +0000] [21804] [INFO] Worker exiting (pid: 21804)
+[2017-07-27 08:20:10 +0000] [21813] [INFO] Booting worker with pid: 21813
+[2017-07-27 08:21:21 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21813)
+[2017-07-27 08:21:45 +0000] [21813] [INFO] Worker exiting (pid: 21813)
+[2017-07-27 08:22:47 +0000] [21819] [INFO] Booting worker with pid: 21819
+[2017-07-27 08:23:18 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21819)
+[2017-07-27 08:23:20 +0000] [21824] [INFO] Booting worker with pid: 21824
+[2017-07-27 08:24:02 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21824)
+[2017-07-27 08:24:02 +0000] [21824] [INFO] Worker exiting (pid: 21824)
+[2017-07-27 08:24:04 +0000] [21829] [INFO] Booting worker with pid: 21829
+[2017-07-27 08:24:34 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21829)
+[2017-07-27 08:24:35 +0000] [21829] [INFO] Worker exiting (pid: 21829)
+[2017-07-27 08:24:35 +0000] [21835] [INFO] Booting worker with pid: 21835
+[2017-07-27 08:25:05 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21835)
+[2017-07-27 08:25:05 +0000] [21835] [INFO] Worker exiting (pid: 21835)
+[2017-07-27 08:25:06 +0000] [21840] [INFO] Booting worker with pid: 21840
+[2017-07-27 08:25:41 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21840)
+[2017-07-27 08:25:43 +0000] [21840] [INFO] Worker exiting (pid: 21840)
+[2017-07-27 08:26:16 +0000] [21845] [INFO] Booting worker with pid: 21845
+[2017-07-27 08:26:47 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21845)
+[2017-07-27 08:27:10 +0000] [21850] [INFO] Booting worker with pid: 21850
+[2017-07-27 08:27:35 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21850)
+[2017-07-27 08:27:35 +0000] [21850] [INFO] Worker exiting (pid: 21850)
+[2017-07-27 08:28:15 +0000] [21856] [INFO] Booting worker with pid: 21856
+[2017-07-27 08:28:45 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21856)
+[2017-07-27 08:28:47 +0000] [21861] [INFO] Booting worker with pid: 21861
+[2017-07-27 08:29:18 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21861)
+[2017-07-27 08:29:26 +0000] [21861] [INFO] Worker exiting (pid: 21861)
+[2017-07-27 08:29:52 +0000] [21866] [INFO] Booting worker with pid: 21866
+[2017-07-27 08:30:42 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21866)
+[2017-07-27 08:31:19 +0000] [21866] [INFO] Worker exiting (pid: 21866)
+[2017-07-27 08:31:20 +0000] [21872] [INFO] Booting worker with pid: 21872
+[2017-07-27 08:31:50 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21872)
+[2017-07-27 08:31:51 +0000] [21872] [INFO] Worker exiting (pid: 21872)
+[2017-07-27 08:32:02 +0000] [21877] [INFO] Booting worker with pid: 21877
+[2017-07-27 08:32:28 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21877)
+[2017-07-27 08:32:29 +0000] [21877] [INFO] Worker exiting (pid: 21877)
+[2017-07-27 08:32:40 +0000] [21878] [INFO] Booting worker with pid: 21878
+[2017-07-27 08:33:11 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21878)
+[2017-07-27 08:33:14 +0000] [21884] [INFO] Booting worker with pid: 21884
+[2017-07-27 08:33:43 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21884)
+[2017-07-27 08:34:11 +0000] [21885] [INFO] Booting worker with pid: 21885
+[2017-07-27 08:35:07 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21885)
+[2017-07-27 08:35:08 +0000] [21885] [INFO] Worker exiting (pid: 21885)
+[2017-07-27 08:35:09 +0000] [21891] [INFO] Booting worker with pid: 21891
+[2017-07-27 08:35:41 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21891)
+[2017-07-27 08:35:52 +0000] [21891] [INFO] Worker exiting (pid: 21891)
+[2017-07-27 08:35:53 +0000] [21896] [INFO] Booting worker with pid: 21896
+[2017-07-27 08:39:06 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21896)
+[2017-07-27 08:39:41 +0000] [21896] [INFO] Worker exiting (pid: 21896)
+[2017-07-27 08:39:42 +0000] [21909] [INFO] Booting worker with pid: 21909
+[2017-07-27 08:40:17 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21909)
+[2017-07-27 08:40:20 +0000] [21914] [INFO] Booting worker with pid: 21914
+[2017-07-27 08:41:05 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21914)
+[2017-07-27 08:41:08 +0000] [21915] [INFO] Booting worker with pid: 21915
+[2017-08-09 10:53:37 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21915)
+[2017-08-09 10:53:37 +0000] [21915] [INFO] Worker exiting (pid: 21915)
+[2017-08-09 10:53:46 +0000] [15485] [INFO] Booting worker with pid: 15485
+[2017-08-09 11:58:13 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:15485)
+[2017-08-09 11:58:24 +0000] [15485] [INFO] Worker exiting (pid: 15485)
+[2017-08-09 11:58:30 +0000] [15653] [INFO] Booting worker with pid: 15653
+[2017-08-09 20:45:12 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:15653)
+[2017-08-09 20:46:53 +0000] [18064] [INFO] Booting worker with pid: 18064
+[2017-08-09 21:08:16 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:18064)
+[2017-08-09 21:08:18 +0000] [18064] [INFO] Worker exiting (pid: 18064)
+[2017-08-09 21:08:24 +0000] [18124] [INFO] Booting worker with pid: 18124
+[2017-08-09 22:16:50 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:18124)
+[2017-08-09 22:17:13 +0000] [18124] [INFO] Worker exiting (pid: 18124)
+[2017-08-09 22:17:15 +0000] [18310] [INFO] Booting worker with pid: 18310
+[2017-08-09 22:27:52 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:18310)
+[2017-08-09 22:28:16 +0000] [18310] [INFO] Worker exiting (pid: 18310)
+[2017-08-09 22:28:20 +0000] [18337] [INFO] Booting worker with pid: 18337
+[2017-08-09 22:39:09 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:18337)
+[2017-08-09 22:39:16 +0000] [18366] [INFO] Booting worker with pid: 18366
+[2017-08-09 22:59:40 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:18366)
+[2017-08-09 23:00:31 +0000] [18366] [INFO] Worker exiting (pid: 18366)
+[2017-08-09 23:00:44 +0000] [18417] [INFO] Booting worker with pid: 18417
+[2017-08-10 01:47:15 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:18417)
+[2017-08-10 01:47:30 +0000] [18417] [INFO] Worker exiting (pid: 18417)
+[2017-08-10 01:47:34 +0000] [19884] [INFO] Booting worker with pid: 19884
+[2017-08-10 02:29:19 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:19884)
+[2017-08-10 02:29:22 +0000] [19884] [INFO] Worker exiting (pid: 19884)
+[2017-08-10 02:29:28 +0000] [19987] [INFO] Booting worker with pid: 19987
+[2017-08-10 03:03:16 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:19987)
+[2017-08-10 03:03:18 +0000] [19987] [INFO] Worker exiting (pid: 19987)
+[2017-08-10 03:03:22 +0000] [20071] [INFO] Booting worker with pid: 20071
+[2017-08-10 03:06:49 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:20071)
+[2017-08-10 03:07:17 +0000] [20071] [INFO] Worker exiting (pid: 20071)
+[2017-08-10 03:07:57 +0000] [20085] [INFO] Booting worker with pid: 20085
+[2017-08-10 03:34:06 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:20085)
+[2017-08-10 03:34:08 +0000] [20085] [INFO] Worker exiting (pid: 20085)
+[2017-08-10 03:34:11 +0000] [20154] [INFO] Booting worker with pid: 20154
+[2017-08-10 07:06:02 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:20154)
+[2017-08-10 07:06:18 +0000] [20154] [INFO] Worker exiting (pid: 20154)
+[2017-08-10 07:07:18 +0000] [21868] [INFO] Booting worker with pid: 21868
+[2017-08-10 07:25:27 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21868)
+[2017-08-10 07:25:40 +0000] [21868] [INFO] Worker exiting (pid: 21868)
+[2017-08-10 07:25:46 +0000] [21921] [INFO] Booting worker with pid: 21921
+[2017-08-10 07:47:47 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21921)
+[2017-08-10 07:47:59 +0000] [21921] [INFO] Worker exiting (pid: 21921)
+[2017-08-10 07:48:38 +0000] [21977] [INFO] Booting worker with pid: 21977
+[2017-08-10 08:02:31 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:21977)
+[2017-08-10 08:02:38 +0000] [21977] [INFO] Worker exiting (pid: 21977)
+[2017-08-10 08:03:00 +0000] [22018] [INFO] Booting worker with pid: 22018
+[2017-08-10 08:04:13 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22018)
+[2017-08-10 08:04:22 +0000] [22023] [INFO] Booting worker with pid: 22023
+[2017-08-10 08:15:31 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22023)
+[2017-08-10 08:16:16 +0000] [22036] [INFO] Booting worker with pid: 22036
+[2017-08-10 08:18:06 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22036)
+[2017-08-10 08:18:19 +0000] [22036] [INFO] Worker exiting (pid: 22036)
+[2017-08-10 08:18:59 +0000] [22045] [INFO] Booting worker with pid: 22045
+[2017-08-10 08:23:55 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22045)
+[2017-08-10 08:24:11 +0000] [22045] [INFO] Worker exiting (pid: 22045)
+[2017-08-10 08:24:16 +0000] [22058] [INFO] Booting worker with pid: 22058
+[2017-08-10 08:25:29 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22058)
+[2017-08-10 08:25:36 +0000] [22058] [INFO] Worker exiting (pid: 22058)
+[2017-08-10 08:28:14 +0000] [22067] [INFO] Booting worker with pid: 22067
+[2017-08-10 08:28:50 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22067)
+[2017-08-10 08:33:05 +0000] [22067] [INFO] Worker exiting (pid: 22067)
+[2017-08-10 08:33:20 +0000] [22073] [INFO] Booting worker with pid: 22073
+[2017-08-10 19:02:05 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:22073)
+[2017-08-10 19:02:07 +0000] [22073] [INFO] Worker exiting (pid: 22073)
+[2017-08-10 19:02:14 +0000] [25779] [INFO] Booting worker with pid: 25779
+[2017-08-11 02:07:44 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:25779)
+[2017-08-11 02:07:44 +0000] [25779] [INFO] Worker exiting (pid: 25779)
+[2017-08-11 02:07:45 +0000] [27902] [INFO] Booting worker with pid: 27902
+[2017-08-11 02:09:57 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:27902)
+[2017-08-11 02:10:17 +0000] [27902] [INFO] Worker exiting (pid: 27902)
+[2017-08-11 02:12:55 +0000] [27909] [INFO] Booting worker with pid: 27909
+[2017-08-11 02:28:09 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:27909)
+[2017-08-11 02:28:10 +0000] [27909] [INFO] Worker exiting (pid: 27909)
+[2017-08-11 02:28:15 +0000] [27958] [INFO] Booting worker with pid: 27958
+[2017-08-17 08:03:47 +0000] [9862] [CRITICAL] WORKER TIMEOUT (pid:27958)
+[2017-08-17 08:04:03 +0000] [27958] [INFO] Worker exiting (pid: 27958)
+[2017-08-17 08:04:16 +0000] [11767] [INFO] Booting worker with pid: 11767
+[2017-08-27 19:04:41 +0000] [30686] [INFO] Starting gunicorn 19.7.1
+[2017-08-27 19:04:41 +0000] [30686] [INFO] Listening at: http://127.0.0.1:9000 (30686)
+[2017-08-27 19:04:41 +0000] [30686] [INFO] Using worker: sync
+[2017-08-27 19:04:41 +0000] [31747] [INFO] Booting worker with pid: 31747
+[2017-08-27 21:22:20 +0000] [30686] [INFO] Handling signal: hup
+[2017-08-27 21:22:20 +0000] [30686] [INFO] Hang up: Master
+[2017-08-27 21:22:20 +0000] [1878] [INFO] Booting worker with pid: 1878
+[2017-09-04 05:26:22 +0000] [30686] [CRITICAL] WORKER TIMEOUT (pid:1878)
+[2017-09-04 05:26:25 +0000] [1878] [INFO] Worker exiting (pid: 1878)
+[2017-09-04 05:26:30 +0000] [27955] [INFO] Booting worker with pid: 27955
+[2017-09-08 14:20:16 +0000] [30686] [INFO] Handling signal: term
+[2017-09-08 14:20:16 +0000] [27955] [INFO] Worker exiting (pid: 27955)
+[2017-09-08 14:20:16 +0000] [30686] [INFO] Shutting down: Master
+[2017-10-02 17:26:32 +0000] [3818] [INFO] Starting gunicorn 19.7.1
+[2017-10-02 17:26:32 +0000] [3818] [INFO] Listening at: http://127.0.0.1:9000 (3818)
+[2017-10-02 17:26:32 +0000] [3818] [INFO] Using worker: sync
+[2017-10-02 17:26:32 +0000] [3823] [INFO] Booting worker with pid: 3823
+[2017-10-02 17:26:45 +0000] [3828] [INFO] Starting gunicorn 19.7.1
+[2017-10-02 17:26:45 +0000] [3828] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:26:45 +0000] [3828] [ERROR] Retrying in 1 second.
+[2017-10-02 17:26:46 +0000] [3828] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:26:46 +0000] [3828] [ERROR] Retrying in 1 second.
+[2017-10-02 17:26:47 +0000] [3828] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:26:47 +0000] [3828] [ERROR] Retrying in 1 second.
+[2017-10-02 17:26:48 +0000] [3828] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:26:48 +0000] [3828] [ERROR] Retrying in 1 second.
+[2017-10-02 17:26:49 +0000] [3828] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:26:49 +0000] [3828] [ERROR] Retrying in 1 second.
+[2017-10-02 17:26:50 +0000] [3828] [ERROR] Can't connect to ('127.0.0.1', 9000)
+[2017-10-02 17:27:25 +0000] [3835] [INFO] Starting gunicorn 19.7.1
+[2017-10-02 17:27:25 +0000] [3835] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:27:25 +0000] [3835] [ERROR] Retrying in 1 second.
+[2017-10-02 17:27:26 +0000] [3835] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:27:26 +0000] [3835] [ERROR] Retrying in 1 second.
+[2017-10-02 17:27:27 +0000] [3835] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:27:27 +0000] [3835] [ERROR] Retrying in 1 second.
+[2017-10-02 17:27:28 +0000] [3835] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:27:28 +0000] [3835] [ERROR] Retrying in 1 second.
+[2017-10-02 17:27:29 +0000] [3835] [ERROR] Connection in use: ('127.0.0.1', 9000)
+[2017-10-02 17:27:29 +0000] [3835] [ERROR] Retrying in 1 second.
+[2017-10-02 17:27:30 +0000] [3835] [ERROR] Can't connect to ('127.0.0.1', 9000)
+[2017-10-02 17:36:13 +0000] [3818] [INFO] Handling signal: term
+[2017-10-02 17:36:13 +0000] [3823] [INFO] Worker exiting (pid: 3823)
+[2017-10-02 17:36:14 +0000] [3818] [INFO] Shutting down: Master
+[2018-02-18 15:07:27 +0000] [12151] [INFO] Starting gunicorn 19.7.1
+[2018-02-18 15:07:27 +0000] [12151] [INFO] Listening at: http://127.0.0.1:9000 (12151)
+[2018-02-18 15:07:27 +0000] [12151] [INFO] Using worker: sync
+[2018-02-18 15:07:27 +0000] [12164] [INFO] Booting worker with pid: 12164
+[18-Feb-2018 15:16:56] NOTICE: [pool www] 'user' directive is ignored when FPM is not running as root
+[18-Feb-2018 15:16:56] NOTICE: [pool www] 'group' directive is ignored when FPM is not running as root
+[18-Feb-2018 15:16:56] ERROR: unable to bind listening socket for address '/var/run/php/php7.0-fpm.sock': Permission denied (13)
+[18-Feb-2018 15:16:56] ERROR: FPM initialization failed
+[18-Feb-2018 15:17:36] NOTICE: [pool www] 'user' directive is ignored when FPM is not running as root
+[18-Feb-2018 15:17:36] NOTICE: [pool www] 'group' directive is ignored when FPM is not running as root
+[18-Feb-2018 15:18:37] ERROR: An another FPM instance seems to already listen on /var/run/php/php7.0-fpm.sock
+[18-Feb-2018 15:18:37] ERROR: FPM initialization failed
+[2018-03-03 16:15:28 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:12164)
+[2018-03-03 16:15:43 +0000] [12164] [INFO] Worker exiting (pid: 12164)
+[2018-03-03 16:15:45 +0000] [3311] [INFO] Booting worker with pid: 3311
+[2018-03-03 16:16:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3311)
+[2018-03-03 16:16:16 +0000] [3311] [INFO] Worker exiting (pid: 3311)
+[2018-03-03 16:16:18 +0000] [3316] [INFO] Booting worker with pid: 3316
+[2018-03-03 16:40:48 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3316)
+[2018-03-03 16:40:49 +0000] [3316] [INFO] Worker exiting (pid: 3316)
+[2018-03-03 16:41:31 +0000] [3616] [INFO] Booting worker with pid: 3616
+[2018-03-03 16:41:33 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3616)
+[2018-03-03 16:41:33 +0000] [3616] [INFO] Worker exiting (pid: 3616)
+[2018-03-03 16:41:49 +0000] [3619] [INFO] Booting worker with pid: 3619
+[2018-03-03 16:42:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3619)
+[2018-03-03 16:42:36 +0000] [3629] [INFO] Booting worker with pid: 3629
+[2018-03-03 16:43:05 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3629)
+[2018-03-03 16:43:05 +0000] [3629] [INFO] Worker exiting (pid: 3629)
+[2018-03-03 16:43:10 +0000] [3641] [INFO] Booting worker with pid: 3641
+[2018-03-03 16:43:38 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3641)
+[2018-03-03 16:45:53 +0000] [3661] [INFO] Booting worker with pid: 3661
+[2018-03-03 16:46:01 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3661)
+[2018-03-03 16:47:16 +0000] [3661] [INFO] Worker exiting (pid: 3661)
+[2018-03-03 16:48:02 +0000] [3669] [INFO] Booting worker with pid: 3669
+[2018-03-03 16:48:22 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3669)
+[2018-03-03 16:50:55 +0000] [3669] [INFO] Worker exiting (pid: 3669)
+[2018-03-03 16:51:44 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3689)
+[2018-03-03 16:52:07 +0000] [3691] [INFO] Booting worker with pid: 3691
+[2018-03-03 16:52:27 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3691)
+[2018-03-03 16:52:59 +0000] [3694] [INFO] Booting worker with pid: 3694
+[2018-03-03 16:53:13 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3694)
+[2018-03-03 16:53:28 +0000] [3701] [INFO] Booting worker with pid: 3701
+[2018-03-03 16:53:53 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3701)
+[2018-03-03 16:53:53 +0000] [3701] [INFO] Worker exiting (pid: 3701)
+[2018-03-03 16:54:07 +0000] [3704] [INFO] Booting worker with pid: 3704
+[2018-03-03 16:54:31 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3704)
+[2018-03-03 16:54:31 +0000] [3704] [INFO] Worker exiting (pid: 3704)
+[2018-03-03 16:54:44 +0000] [3705] [INFO] Booting worker with pid: 3705
+[2018-03-03 16:55:24 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3705)
+[2018-03-03 16:55:24 +0000] [3705] [INFO] Worker exiting (pid: 3705)
+[2018-03-03 16:55:32 +0000] [3711] [INFO] Booting worker with pid: 3711
+[2018-03-03 16:55:59 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3711)
+[2018-03-03 16:55:59 +0000] [3711] [INFO] Worker exiting (pid: 3711)
+[2018-03-03 16:56:05 +0000] [3716] [INFO] Booting worker with pid: 3716
+[2018-03-03 16:56:32 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3716)
+[2018-03-03 16:56:33 +0000] [3716] [INFO] Worker exiting (pid: 3716)
+[2018-03-03 16:56:39 +0000] [3721] [INFO] Booting worker with pid: 3721
+[2018-03-03 16:57:10 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3721)
+[2018-03-03 16:57:10 +0000] [3721] [INFO] Worker exiting (pid: 3721)
+[2018-03-03 16:57:15 +0000] [3727] [INFO] Booting worker with pid: 3727
+[2018-03-03 16:57:43 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3727)
+[2018-03-03 16:57:44 +0000] [3727] [INFO] Worker exiting (pid: 3727)
+[2018-03-03 16:57:47 +0000] [3732] [INFO] Booting worker with pid: 3732
+[2018-03-03 16:58:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3732)
+[2018-03-03 16:59:47 +0000] [3732] [INFO] Worker exiting (pid: 3732)
+[2018-03-03 16:59:57 +0000] [3738] [INFO] Booting worker with pid: 3738
+[2018-03-03 17:00:27 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3738)
+[2018-03-03 17:00:27 +0000] [3738] [INFO] Worker exiting (pid: 3738)
+[2018-03-03 17:00:35 +0000] [3743] [INFO] Booting worker with pid: 3743
+[2018-03-03 17:01:02 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3743)
+[2018-03-03 17:01:03 +0000] [3743] [INFO] Worker exiting (pid: 3743)
+[2018-03-03 17:01:09 +0000] [3751] [INFO] Booting worker with pid: 3751
+[2018-03-03 17:01:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3751)
+[2018-03-03 17:03:17 +0000] [3751] [INFO] Worker exiting (pid: 3751)
+[2018-03-03 17:03:27 +0000] [3759] [INFO] Booting worker with pid: 3759
+[2018-03-03 17:03:49 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3759)
+[2018-03-03 17:03:57 +0000] [3761] [INFO] Booting worker with pid: 3761
+[2018-03-03 17:04:23 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3761)
+[2018-03-03 17:04:33 +0000] [3765] [INFO] Booting worker with pid: 3765
+[2018-03-03 17:04:55 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3765)
+[2018-03-03 17:04:59 +0000] [3765] [INFO] Worker exiting (pid: 3765)
+[2018-03-03 17:05:16 +0000] [3770] [INFO] Booting worker with pid: 3770
+[2018-03-03 17:05:44 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3770)
+[2018-03-03 17:05:44 +0000] [3770] [INFO] Worker exiting (pid: 3770)
+[2018-03-03 17:06:04 +0000] [3775] [INFO] Booting worker with pid: 3775
+[2018-03-03 17:06:48 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3775)
+[2018-03-03 17:08:50 +0000] [3784] [INFO] Booting worker with pid: 3784
+[2018-03-03 17:08:51 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3784)
+[2018-03-03 17:08:51 +0000] [3784] [INFO] Worker exiting (pid: 3784)
+[2018-03-03 17:08:52 +0000] [3786] [INFO] Booting worker with pid: 3786
+[2018-03-03 17:15:21 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3786)
+[2018-03-03 17:16:41 +0000] [3786] [INFO] Worker exiting (pid: 3786)
+[2018-03-03 17:16:56 +0000] [3803] [INFO] Booting worker with pid: 3803
+[2018-03-03 17:18:33 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3803)
+[2018-03-03 17:18:55 +0000] [3803] [INFO] Worker exiting (pid: 3803)
+[2018-03-03 17:21:04 +0000] [3809] [INFO] Booting worker with pid: 3809
+[2018-03-03 17:21:31 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3809)
+[2018-03-03 17:21:31 +0000] [3809] [INFO] Worker exiting (pid: 3809)
+[2018-03-03 17:21:39 +0000] [3818] [INFO] Booting worker with pid: 3818
+[2018-03-03 17:22:37 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3818)
+[2018-03-03 17:28:14 +0000] [3825] [INFO] Booting worker with pid: 3825
+[2018-03-03 17:28:46 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3825)
+[2018-03-03 17:28:53 +0000] [3827] [INFO] Booting worker with pid: 3827
+[2018-03-03 17:29:21 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3827)
+[2018-03-03 17:30:32 +0000] [3827] [INFO] Worker exiting (pid: 3827)
+[2018-03-03 17:30:46 +0000] [3833] [INFO] Booting worker with pid: 3833
+[2018-03-03 17:31:58 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3833)
+[2018-03-03 17:32:22 +0000] [3833] [INFO] Worker exiting (pid: 3833)
+[2018-03-03 17:34:13 +0000] [3839] [INFO] Booting worker with pid: 3839
+[2018-03-03 17:34:31 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3839)
+[2018-03-03 17:34:40 +0000] [3839] [INFO] Worker exiting (pid: 3839)
+[2018-03-03 17:35:17 +0000] [3840] [INFO] Booting worker with pid: 3840
+[2018-03-03 17:35:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3840)
+[2018-03-03 17:36:00 +0000] [3842] [INFO] Booting worker with pid: 3842
+[2018-03-03 17:36:23 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3842)
+[2018-03-03 17:36:26 +0000] [3842] [INFO] Worker exiting (pid: 3842)
+[2018-03-03 17:40:11 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3857)
+[2018-03-03 17:40:08 +0000] [3857] [INFO] Booting worker with pid: 3857
+[2018-03-03 17:42:44 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3889)
+[2018-03-03 17:42:52 +0000] [3894] [INFO] Booting worker with pid: 3894
+[2018-03-03 17:43:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3894)
+[2018-03-03 17:43:51 +0000] [3895] [INFO] Booting worker with pid: 3895
+[2018-03-03 17:44:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3895)
+[2018-03-03 17:45:06 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3898)
+[2018-03-03 17:45:39 +0000] [3901] [INFO] Booting worker with pid: 3901
+[2018-03-03 17:45:59 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3901)
+[2018-03-03 17:46:22 +0000] [3903] [INFO] Booting worker with pid: 3903
+[2018-03-03 17:47:03 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3903)
+[2018-03-03 17:58:34 +0000] [3910] [INFO] Booting worker with pid: 3910
+[2018-03-03 17:59:14 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3910)
+[2018-03-03 18:01:02 +0000] [3915] [INFO] Booting worker with pid: 3915
+[2018-03-03 18:01:32 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3915)
+[2018-03-03 18:01:38 +0000] [3915] [INFO] Worker exiting (pid: 3915)
+[2018-03-03 18:02:57 +0000] [3922] [INFO] Booting worker with pid: 3922
+[2018-03-03 18:03:40 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3922)
+[2018-03-03 18:04:26 +0000] [3929] [INFO] Booting worker with pid: 3929
+[2018-03-03 18:05:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3929)
+[2018-03-03 18:08:10 +0000] [3929] [INFO] Worker exiting (pid: 3929)
+[2018-03-03 18:09:32 +0000] [3939] [INFO] Booting worker with pid: 3939
+[2018-03-03 18:09:50 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3939)
+[2018-03-03 18:11:03 +0000] [3941] [INFO] Booting worker with pid: 3941
+[2018-03-03 18:11:34 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3941)
+[2018-03-03 18:12:20 +0000] [3953] [INFO] Booting worker with pid: 3953
+[2018-03-03 18:12:41 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3953)
+[2018-03-03 18:12:41 +0000] [3953] [INFO] Worker exiting (pid: 3953)
+[2018-03-03 18:12:42 +0000] [3958] [INFO] Booting worker with pid: 3958
+[2018-03-03 18:13:12 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3958)
+[2018-03-03 18:15:08 +0000] [3967] [INFO] Booting worker with pid: 3967
+[2018-03-03 18:15:20 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3967)
+[2018-03-03 18:15:21 +0000] [3967] [INFO] Worker exiting (pid: 3967)
+[2018-03-03 18:15:27 +0000] [3970] [INFO] Booting worker with pid: 3970
+[2018-03-03 18:15:55 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3970)
+[2018-03-03 18:18:23 +0000] [3975] [INFO] Booting worker with pid: 3975
+[2018-03-03 18:18:36 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3975)
+[2018-03-03 18:21:42 +0000] [3984] [INFO] Booting worker with pid: 3984
+[2018-03-03 18:21:52 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3984)
+[2018-03-03 18:24:28 +0000] [3984] [INFO] Worker exiting (pid: 3984)
+[2018-03-03 18:24:39 +0000] [3990] [INFO] Booting worker with pid: 3990
+[2018-03-03 18:25:02 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3990)
+[2018-03-03 18:25:17 +0000] [3990] [INFO] Worker exiting (pid: 3990)
+[2018-03-03 18:25:23 +0000] [3991] [INFO] Booting worker with pid: 3991
+[2018-03-03 18:25:55 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:3991)
+[2018-03-03 18:26:08 +0000] [3991] [INFO] Worker exiting (pid: 3991)
+[2018-03-03 18:29:34 +0000] [4013] [INFO] Booting worker with pid: 4013
+[2018-03-03 18:29:44 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:4013)
+[2018-03-03 18:33:55 +0000] [4051] [INFO] Booting worker with pid: 4051
+[2018-03-03 18:34:07 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:4051)
+[2018-03-03 18:37:25 +0000] [4079] [INFO] Booting worker with pid: 4079
+[2018-03-03 18:38:46 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:4079)
+[2018-03-03 18:39:28 +0000] [4081] [INFO] Booting worker with pid: 4081
+[2018-03-03 18:40:25 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:4081)
+[2018-03-03 18:41:55 +0000] [4081] [INFO] Worker exiting (pid: 4081)
+[2018-03-03 18:42:53 +0000] [4087] [INFO] Booting worker with pid: 4087
+[2018-03-03 18:43:21 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:4087)
+[2018-03-03 18:43:47 +0000] [4087] [INFO] Worker exiting (pid: 4087)
+[2018-03-03 18:44:01 +0000] [4088] [INFO] Booting worker with pid: 4088
+[2018-03-03 18:44:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:4088)
+[2018-03-03 18:44:41 +0000] [4088] [INFO] Worker exiting (pid: 4088)
+[2018-03-03 18:44:48 +0000] [5120] [INFO] Booting worker with pid: 5120
+[2018-03-03 18:45:20 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5120)
+[2018-03-03 18:45:51 +0000] [5122] [INFO] Booting worker with pid: 5122
+[2018-03-03 18:46:57 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5122)
+[2018-03-03 18:47:24 +0000] [5127] [INFO] Booting worker with pid: 5127
+[2018-03-03 18:48:19 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5127)
+[2018-03-03 18:49:55 +0000] [5127] [INFO] Worker exiting (pid: 5127)
+[2018-03-03 18:51:36 +0000] [5133] [INFO] Booting worker with pid: 5133
+[2018-03-03 18:52:00 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5133)
+[2018-03-03 18:52:10 +0000] [5133] [INFO] Worker exiting (pid: 5133)
+[2018-03-03 18:52:52 +0000] [5135] [INFO] Booting worker with pid: 5135
+[2018-03-03 18:53:12 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5135)
+[2018-03-03 18:54:42 +0000] [5139] [INFO] Booting worker with pid: 5139
+[2018-03-03 18:54:52 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5139)
+[2018-03-03 18:54:58 +0000] [5139] [INFO] Worker exiting (pid: 5139)
+[2018-03-03 18:56:03 +0000] [5141] [INFO] Booting worker with pid: 5141
+[2018-03-03 18:56:09 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5141)
+[2018-03-03 18:56:09 +0000] [5141] [INFO] Worker exiting (pid: 5141)
+[2018-03-03 18:58:20 +0000] [5146] [INFO] Booting worker with pid: 5146
+[2018-03-03 18:58:48 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5146)
+[2018-03-03 18:58:49 +0000] [5146] [INFO] Worker exiting (pid: 5146)
+[2018-03-03 18:58:54 +0000] [5152] [INFO] Booting worker with pid: 5152
+[2018-03-03 18:59:24 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5152)
+[2018-03-03 19:00:21 +0000] [5152] [INFO] Worker exiting (pid: 5152)
+[2018-03-03 19:00:21 +0000] [5158] [INFO] Booting worker with pid: 5158
+[2018-03-03 19:02:01 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5158)
+[2018-03-03 19:05:43 +0000] [5166] [INFO] Booting worker with pid: 5166
+[2018-03-03 19:05:59 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5166)
+[2018-03-03 19:10:11 +0000] [5169] [INFO] Booting worker with pid: 5169
+[2018-03-03 19:12:21 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5169)
+[2018-03-03 19:13:26 +0000] [5169] [INFO] Worker exiting (pid: 5169)
+[2018-03-03 19:14:56 +0000] [5178] [INFO] Booting worker with pid: 5178
+[2018-03-03 19:15:06 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5178)
+[2018-03-03 19:19:14 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5190)
+[2018-03-03 19:19:07 +0000] [5190] [INFO] Booting worker with pid: 5190
+[2018-03-03 19:19:50 +0000] [5190] [INFO] Worker exiting (pid: 5190)
+[2018-03-03 19:22:41 +0000] [5192] [INFO] Booting worker with pid: 5192
+[2018-03-03 19:23:02 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5192)
+[2018-03-03 19:23:05 +0000] [5192] [INFO] Worker exiting (pid: 5192)
+[2018-03-03 19:23:37 +0000] [5193] [INFO] Booting worker with pid: 5193
+[2018-03-03 19:24:41 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5193)
+[2018-03-03 19:25:05 +0000] [5193] [INFO] Worker exiting (pid: 5193)
+[2018-03-03 19:25:29 +0000] [5194] [INFO] Booting worker with pid: 5194
+[2018-03-03 19:31:05 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5194)
+[2018-03-03 19:31:56 +0000] [5194] [INFO] Worker exiting (pid: 5194)
+[2018-03-03 19:33:36 +0000] [5207] [INFO] Booting worker with pid: 5207
+[2018-03-03 19:34:05 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5207)
+[2018-03-03 19:35:36 +0000] [5207] [INFO] Worker exiting (pid: 5207)
+[2018-03-03 19:35:56 +0000] [5214] [INFO] Booting worker with pid: 5214
+[2018-03-03 19:36:17 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5214)
+[2018-03-03 19:37:00 +0000] [5214] [INFO] Worker exiting (pid: 5214)
+[2018-03-03 19:37:21 +0000] [5219] [INFO] Booting worker with pid: 5219
+[2018-03-03 19:37:43 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5219)
+[2018-03-03 19:37:48 +0000] [5219] [INFO] Worker exiting (pid: 5219)
+[2018-03-03 19:39:07 +0000] [5224] [INFO] Booting worker with pid: 5224
+[2018-03-03 19:39:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5224)
+[2018-03-03 19:39:36 +0000] [5224] [INFO] Worker exiting (pid: 5224)
+[2018-03-03 19:39:46 +0000] [5230] [INFO] Booting worker with pid: 5230
+[2018-03-03 19:40:17 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5230)
+[2018-03-03 19:40:20 +0000] [5230] [INFO] Worker exiting (pid: 5230)
+[2018-03-03 19:40:28 +0000] [5235] [INFO] Booting worker with pid: 5235
+[2018-03-03 19:41:02 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5235)
+[2018-03-03 19:41:05 +0000] [5235] [INFO] Worker exiting (pid: 5235)
+[2018-03-03 19:41:15 +0000] [5240] [INFO] Booting worker with pid: 5240
+[2018-03-03 19:41:40 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5240)
+[2018-03-03 19:42:11 +0000] [5248] [INFO] Booting worker with pid: 5248
+[2018-03-03 19:42:42 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5248)
+[2018-03-03 19:43:20 +0000] [5248] [INFO] Worker exiting (pid: 5248)
+[2018-03-03 19:43:25 +0000] [5253] [INFO] Booting worker with pid: 5253
+[2018-03-03 19:43:52 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5253)
+[2018-03-03 19:43:56 +0000] [5259] [INFO] Booting worker with pid: 5259
+[2018-03-03 19:44:29 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5259)
+[2018-03-03 19:44:39 +0000] [5271] [INFO] Booting worker with pid: 5271
+[2018-03-03 19:45:08 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5271)
+[2018-03-03 19:46:19 +0000] [5277] [INFO] Booting worker with pid: 5277
+[2018-03-03 19:46:39 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5277)
+[2018-03-03 19:46:43 +0000] [5278] [INFO] Booting worker with pid: 5278
+[2018-03-03 19:47:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5278)
+[2018-03-03 19:48:19 +0000] [5278] [INFO] Worker exiting (pid: 5278)
+[2018-03-03 19:48:54 +0000] [5284] [INFO] Booting worker with pid: 5284
+[2018-03-03 19:49:06 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5284)
+[2018-03-03 19:49:07 +0000] [5284] [INFO] Worker exiting (pid: 5284)
+[2018-03-03 19:49:35 +0000] [5285] [INFO] Booting worker with pid: 5285
+[2018-03-03 19:50:22 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5285)
+[2018-03-03 19:52:30 +0000] [5289] [INFO] Booting worker with pid: 5289
+[2018-03-03 19:52:47 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5289)
+[2018-03-03 19:52:47 +0000] [5289] [INFO] Worker exiting (pid: 5289)
+[2018-03-03 19:53:04 +0000] [5290] [INFO] Booting worker with pid: 5290
+[2018-03-03 19:54:49 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5290)
+[2018-03-03 20:00:25 +0000] [5290] [INFO] Worker exiting (pid: 5290)
+[2018-03-03 20:00:26 +0000] [5300] [INFO] Booting worker with pid: 5300
+[2018-03-03 20:01:05 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5300)
+[2018-03-03 20:01:16 +0000] [5300] [INFO] Worker exiting (pid: 5300)
+[2018-03-03 20:02:10 +0000] [5308] [INFO] Booting worker with pid: 5308
+[2018-03-03 20:02:20 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5308)
+[2018-03-03 20:02:25 +0000] [5308] [INFO] Worker exiting (pid: 5308)
+[2018-03-03 20:03:16 +0000] [5309] [INFO] Booting worker with pid: 5309
+[2018-03-03 20:03:27 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5309)
+[2018-03-03 20:04:09 +0000] [5311] [INFO] Booting worker with pid: 5311
+[2018-03-03 20:04:19 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5311)
+[2018-03-03 20:05:08 +0000] [5312] [INFO] Booting worker with pid: 5312
+[2018-03-03 20:05:10 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5312)
+[2018-03-03 20:05:13 +0000] [5313] [INFO] Booting worker with pid: 5313
+[2018-03-03 20:05:39 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5313)
+[2018-03-03 20:05:44 +0000] [5313] [INFO] Worker exiting (pid: 5313)
+[2018-03-03 20:06:53 +0000] [5321] [INFO] Booting worker with pid: 5321
+[2018-03-03 20:07:01 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5321)
+[2018-03-03 20:10:33 +0000] [5321] [INFO] Worker exiting (pid: 5321)
+[2018-03-03 20:10:52 +0000] [5328] [INFO] Booting worker with pid: 5328
+[2018-03-03 20:11:11 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5328)
+[2018-03-03 20:20:23 +0000] [5331] [INFO] Booting worker with pid: 5331
+[2018-03-03 20:20:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5331)
+[2018-03-03 20:23:08 +0000] [5335] [INFO] Booting worker with pid: 5335
+[2018-03-03 20:23:20 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5335)
+[2018-03-03 20:23:57 +0000] [5335] [INFO] Worker exiting (pid: 5335)
+[2018-03-03 20:24:39 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5338)
+[2018-03-03 20:24:29 +0000] [5338] [INFO] Booting worker with pid: 5338
+[2018-03-03 20:26:12 +0000] [5340] [INFO] Booting worker with pid: 5340
+[2018-03-03 20:26:24 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5340)
+[2018-03-03 20:28:24 +0000] [5340] [INFO] Worker exiting (pid: 5340)
+[2018-03-03 20:28:38 +0000] [5348] [INFO] Booting worker with pid: 5348
+[2018-03-03 20:29:04 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5348)
+[2018-03-03 20:29:08 +0000] [5348] [INFO] Worker exiting (pid: 5348)
+[2018-03-03 20:29:28 +0000] [5353] [INFO] Booting worker with pid: 5353
+[2018-03-03 20:29:47 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5353)
+[2018-03-03 20:29:52 +0000] [5353] [INFO] Worker exiting (pid: 5353)
+[2018-03-03 20:33:09 +0000] [5357] [INFO] Booting worker with pid: 5357
+[2018-03-03 20:33:36 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5357)
+[2018-03-03 20:35:26 +0000] [5360] [INFO] Booting worker with pid: 5360
+[2018-03-03 20:35:49 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5360)
+[2018-03-03 20:37:12 +0000] [5363] [INFO] Booting worker with pid: 5363
+[2018-03-03 20:37:35 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5363)
+[2018-03-03 20:39:45 +0000] [5365] [INFO] Booting worker with pid: 5365
+[2018-03-03 20:39:51 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5365)
+[2018-03-03 20:40:03 +0000] [5366] [INFO] Booting worker with pid: 5366
+[2018-03-03 20:41:00 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5366)
+[2018-03-03 20:41:56 +0000] [5373] [INFO] Booting worker with pid: 5373
+[2018-03-03 20:42:27 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5373)
+[2018-03-03 20:42:28 +0000] [5373] [INFO] Worker exiting (pid: 5373)
+[2018-03-03 20:42:32 +0000] [5378] [INFO] Booting worker with pid: 5378
+[2018-03-03 20:43:06 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5378)
+[2018-03-03 20:43:24 +0000] [5384] [INFO] Booting worker with pid: 5384
+[2018-03-03 20:43:47 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5384)
+[2018-03-03 20:43:47 +0000] [5384] [INFO] Worker exiting (pid: 5384)
+[2018-03-03 20:43:51 +0000] [5389] [INFO] Booting worker with pid: 5389
+[2018-03-03 20:44:26 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5389)
+[2018-03-03 20:44:27 +0000] [5389] [INFO] Worker exiting (pid: 5389)
+[2018-03-03 20:45:23 +0000] [5397] [INFO] Booting worker with pid: 5397
+[2018-03-03 20:45:52 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5397)
+[2018-03-03 20:49:49 +0000] [5397] [INFO] Worker exiting (pid: 5397)
+[2018-03-03 20:50:31 +0000] [5411] [INFO] Booting worker with pid: 5411
+[2018-03-03 20:50:56 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5411)
+[2018-03-03 20:52:36 +0000] [5411] [INFO] Worker exiting (pid: 5411)
+[2018-03-03 20:56:12 +0000] [5416] [INFO] Booting worker with pid: 5416
+[2018-03-03 20:57:02 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5416)
+[2018-03-03 20:58:37 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5418)
+[2018-03-03 20:59:30 +0000] [5420] [INFO] Booting worker with pid: 5420
+[2018-03-03 20:59:31 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5420)
+[2018-03-03 20:59:42 +0000] [5420] [INFO] Worker exiting (pid: 5420)
+[2018-03-03 21:00:20 +0000] [5421] [INFO] Booting worker with pid: 5421
+[2018-03-04 08:45:47 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5421)
+[2018-03-04 08:45:48 +0000] [5421] [INFO] Worker exiting (pid: 5421)
+[2018-03-04 08:46:05 +0000] [13680] [INFO] Booting worker with pid: 13680
+[2018-03-04 08:46:16 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:13680)
+[2018-03-04 08:46:16 +0000] [13680] [INFO] Worker exiting (pid: 13680)
+[2018-03-04 08:46:17 +0000] [13686] [INFO] Booting worker with pid: 13686
+[2018-03-04 19:58:24 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:13686)
+[2018-03-04 19:58:27 +0000] [13686] [INFO] Worker exiting (pid: 13686)
+[2018-03-04 19:58:54 +0000] [19837] [INFO] Booting worker with pid: 19837
+[2018-03-04 19:59:19 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:19837)
+[2018-03-04 19:59:19 +0000] [19837] [INFO] Worker exiting (pid: 19837)
+[2018-03-04 19:59:21 +0000] [19845] [INFO] Booting worker with pid: 19845
+[2018-03-05 20:27:32 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:19845)
+[2018-03-05 20:27:35 +0000] [19845] [INFO] Worker exiting (pid: 19845)
+[2018-03-05 20:27:51 +0000] [5214] [INFO] Booting worker with pid: 5214
+[2018-03-06 17:03:30 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:5214)
+[2018-03-06 17:04:00 +0000] [15851] [INFO] Booting worker with pid: 15851
+[2018-03-07 17:05:10 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:15851)
+[2018-03-07 17:05:57 +0000] [15851] [INFO] Worker exiting (pid: 15851)
+[2018-03-07 17:06:35 +0000] [26568] [INFO] Booting worker with pid: 26568
+[2018-03-07 17:06:45 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26568)
+[2018-03-07 17:11:59 +0000] [26570] [INFO] Booting worker with pid: 26570
+[2018-03-07 17:12:14 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26570)
+[2018-03-07 17:19:46 +0000] [26579] [INFO] Booting worker with pid: 26579
+[2018-03-07 17:20:12 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26579)
+[2018-03-07 17:23:35 +0000] [26580] [INFO] Booting worker with pid: 26580
+[2018-03-07 17:24:26 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26580)
+[2018-03-07 17:27:07 +0000] [26580] [INFO] Worker exiting (pid: 26580)
+[2018-03-07 17:27:11 +0000] [26585] [INFO] Booting worker with pid: 26585
+[2018-03-07 17:27:45 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26585)
+[2018-03-07 17:30:21 +0000] [26591] [INFO] Booting worker with pid: 26591
+[2018-03-07 17:30:47 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26591)
+[2018-03-07 17:34:07 +0000] [26597] [INFO] Booting worker with pid: 26597
+[2018-03-07 17:34:50 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26597)
+[2018-03-07 17:36:15 +0000] [26597] [INFO] Worker exiting (pid: 26597)
+[2018-03-07 17:36:25 +0000] [26605] [INFO] Booting worker with pid: 26605
+[2018-03-07 17:37:04 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26605)
+[2018-03-07 17:38:35 +0000] [26605] [INFO] Worker exiting (pid: 26605)
+[2018-03-07 17:42:42 +0000] [26614] [INFO] Booting worker with pid: 26614
+[2018-03-07 17:43:24 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26614)
+[2018-03-07 17:43:35 +0000] [26619] [INFO] Booting worker with pid: 26619
+[2018-03-07 17:44:05 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:26619)
+[2018-03-07 17:44:38 +0000] [26619] [INFO] Worker exiting (pid: 26619)
+[2018-03-07 17:44:44 +0000] [27653] [INFO] Booting worker with pid: 27653
+[2018-03-07 17:45:47 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27653)
+[2018-03-07 17:48:18 +0000] [27658] [INFO] Booting worker with pid: 27658
+[2018-03-07 17:48:00 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27658)
+[2018-03-07 17:51:22 +0000] [27662] [INFO] Booting worker with pid: 27662
+[2018-03-07 17:51:48 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27662)
+[2018-03-07 17:53:17 +0000] [27671] [INFO] Booting worker with pid: 27671
+[2018-03-07 17:54:19 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27671)
+[2018-03-07 17:55:30 +0000] [27671] [INFO] Worker exiting (pid: 27671)
+[2018-03-07 17:55:31 +0000] [27676] [INFO] Booting worker with pid: 27676
+[2018-03-07 17:56:01 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27676)
+[2018-03-07 17:57:23 +0000] [27676] [INFO] Worker exiting (pid: 27676)
+[2018-03-07 17:57:29 +0000] [27683] [INFO] Booting worker with pid: 27683
+[2018-03-07 17:58:21 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27683)
+[2018-03-07 17:59:01 +0000] [27689] [INFO] Booting worker with pid: 27689
+[2018-03-07 17:59:30 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27689)
+[2018-03-07 18:01:50 +0000] [27689] [INFO] Worker exiting (pid: 27689)
+[2018-03-07 18:01:50 +0000] [27696] [INFO] Booting worker with pid: 27696
+[2018-03-07 18:02:44 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27696)
+[2018-03-07 18:02:50 +0000] [27696] [INFO] Worker exiting (pid: 27696)
+[2018-03-07 18:03:41 +0000] [27706] [INFO] Booting worker with pid: 27706
+[2018-03-07 18:04:26 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27706)
+[2018-03-07 18:04:29 +0000] [27706] [INFO] Worker exiting (pid: 27706)
+[2018-03-07 18:05:21 +0000] [27717] [INFO] Booting worker with pid: 27717
+[2018-03-07 18:09:55 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27717)
+[2018-03-07 18:10:09 +0000] [27717] [INFO] Worker exiting (pid: 27717)
+[2018-03-07 18:10:42 +0000] [27732] [INFO] Booting worker with pid: 27732
+[2018-03-07 18:12:57 +0000] [12151] [CRITICAL] WORKER TIMEOUT (pid:27732)
+[2018-03-07 18:13:19 +0000] [27734] [INFO] Booting worker with pid: 27734

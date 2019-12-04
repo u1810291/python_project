@@ -1,0 +1,258 @@
+{% extends 'admin/master.html' %}
+
+{% macro render_field(field) %}
+    {{ field.label }}
+    {{ field(class='form-control', **kwargs)|safe }}
+    {% if field.errors %}
+        <span class="field-error" style="color:red;">{{ field.errors | join('. ') }}</span>
+    {% endif %}
+{% endmacro %}
+
+{% block body %}
+    {{ super() }}
+    <ul class="nav nav-tabs">
+        <li><a href="{{ config.ADMIN_URL }}/order/">List</a></li>
+        <li class="active"><a href="javascript:void(0)">Edit</a></li>
+    </ul>
+    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+        {{ order_form.csrf_token }}
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Информация о заказе №{{ order.id }}</h2>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Общая</h3>
+                        <div class="form-group">
+                            <label>Услуга</label>
+                            <input type="text" disabled readonly value="{{ order.service_label }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Заказчик</label>
+                            <input type="text" disabled readonly value="{{ order.user.name }} ({{ order.user.email }}, {{ order.user.phone }}) " class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Общий вес</label>
+                            <input type="text" disabled readonly value="{{ order.weight }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            {{ render_field(order_form.status) }}
+                        </div>
+                        <div class="form-group">
+                            {{ render_field(order_form.shipping_address) }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <h3>Товары в заказе</h3>
+                        <hr>
+                        {% for item in order_form.items %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ render_field(item.url) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ render_field(item.quantity) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ render_field(item.weight) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ render_field(item.price) }}
+                                    </div>
+                                    {% if order.service == order.SERVICE_CONSOLIDATION %}
+                                        <div class="form-group">
+                                            {{ render_field(item.tracking_id) }}
+                                        </div>
+                                    {% endif %}
+
+                                    {% if order.service == order.SERVICE_PURCHASE %}
+                                        <div class="form-group">
+                                            {{ render_field(item.size) }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {{ render_field(item.color) }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {{ render_field(item.discount) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ render_field(item.comment, rows=8) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-invoices>
+                <h2>Инвойсы</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                    {% if order.invoice_consolidation %}
+                        <h3>На оплату консолидации</h3>
+                        <div class="form-group">
+                            <label>Оплачен?</label>
+                            <input type="text" disabled readonly  value="{{ order.invoice_consolidation.is_paid }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Стоимость консолидации</label>
+                            <input type="text" disabled readonly value="{{ order.invoice_consolidation.delivery_total }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Итого</label>
+                            <input type="text" disabled readonly value="{{ order.invoice_consolidation.total }}" class="form-control">
+                        </div>
+                        {% if not order.invoice_consolidation.is_paid %}
+                            <div class="form-group">
+                                <a href="#" class="btn btn-danger btn-block" data-remove-invoice data-order-id="{{ order.id }}" data-invoice-id="{{ order.invoice_consolidation.id }}" data-csrf-token="{{ csrf_token() }}">Удалить</a>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="form-group">
+                            <a href="#" class="btn btn-success btn-block" data-add-consolidation-invoice data-toggle="modal" data-target="#consolidation_invoice_modal">Добавить инвойс на консолидацию</a>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                    {% if order.invoice_purchase %}
+                        <h3>На оплату товаров</h3>
+                        <div class="form-group">
+                            <label>Оплачен?</label>
+                            <input type="text" disabled readonly  value="{{ order.invoice_purchase.is_paid }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Общая стоимость покупки товаров</label>
+                            <input type="text" disabled readonly  value="{{ order.invoice_purchase.goods_price_total }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Стоимоть услуг SimSim</label>
+                            <input type="text" disabled readonly value="{{ order.invoice_purchase.simsim_commission }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Итого</label>
+                            <input type="text" disabled readonly value="{{ order.invoice_purchase.total }}" class="form-control">
+                        </div>
+                        {% if not order.invoice_purchase.is_paid %}
+                            <div class="form-group">
+                                <a href="#" class="btn btn-danger btn-block" data-remove-invoice data-order-id="{{ order.id }}" data-invoice-id="{{ order.invoice_purchase.id }}" data-csrf-token="{{ csrf_token() }}">Удалить</a>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="form-group">
+                            <a href="#" class="btn btn-success btn-block" data-add-consolidation-invoice data-toggle="modal" data-target="#purchase_invoice_modal">Добавить инвойс на покупку и доставку</a>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <div class="form-group">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="submit" class="btn btn-info">Сохранить</button>
+                            <a href="{{ return_url }}" class="btn btn-danger">Отменить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="modal fade in" id="consolidation_invoice_modal" tabindex="-1" role="dialog" aria-labelledby="fa_modal_label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3>Инвойс на консолидацию</h3>
+                </div>
+                <div class="modal-body" style="padding:15px;">
+                    <form action="" method="POST" role="form" class="admin-form form-horizontal" enctype="multipart/form-data">
+                        <input  name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+                        <div class="form-group">
+                            <label for="delivery_total">Общая стоимость консолидации($)</label>
+                            <input type="number" min="0" step="0.01" name="delivery_total" id="delivery_total" class="form-control" value="">
+                        </div>
+
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10 submit-row">
+                                <input type="submit" class="btn btn-primary" name="action_consolidation_invoice_submit" value="Save">
+                                <a href="#" class="btn btn-danger" role="button" data-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="purchase_invoice_modal" tabindex="-1" role="dialog" aria-labelledby="fa_modal_label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h3>Инвойс на покупку и доставку</h3>
+                </div>
+                <div class="modal-body" style="padding:15px;">
+                    <form action="" method="POST" role="form" class="admin-form form-horizontal" enctype="multipart/form-data">
+                        <input name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+
+                        <div class="form-group">
+                            <label for="goods_price_total">Общая стоимость товаров($)</label>
+                            <input type="number" min="0" step="0.01" name="goods_price_total" id="goods_price_total" class="form-control" value="">
+                        </div>
+
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10 submit-row">
+                                <input type="submit" class="btn btn-primary" name="action_purchase_invoice_submit" value="Save">
+                                <a href="#" class="btn btn-danger" role="button" data-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block tail %}
+    <script type="text/javascript">
+        var $removeInvoice = $('[data-remove-invoice]');
+        $removeInvoice.click(function(event) {
+            var invoiceId = $(this).data('invoice-id');
+            var csrftoken = $(this).data('csrf-token');
+            $.ajax('', {
+                method: 'post',
+                data: {'invoice_id': invoiceId, 'action_remove_invoice': true, 'csrf_token': csrftoken},
+                success: function(data, textStatus, jqXHR) {
+                    console.log(data);
+                    console.log(textStatus);
+                    window.location.reload();
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+            return false;
+        });
+
+    </script>
+{% endblock %}

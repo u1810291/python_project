@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% macro invoice_line(label, price) %}
+    {% if price is not none %}
+        <div class="line">
+            <span class="first">{{ label }}</span>
+            <span class="second">${{ price }}</span>
+            <div class="clearfix"></div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% block content %}
+    <section class="inner-white-bg">
+        <div class="container cardPay">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h1>
+                        <img class="img-icon" src="/static/img/order-form-icon1.png" alt="">
+                        Оплата заказа картой
+                    </h1>
+                </div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <div class="invoiceNumber">
+                        <strong>Инвойс <a href="">№{{ invoice.id }}</a></strong>
+                        {% if invoice.type == invoice.TYPE_PURCHASE %}
+                            {{ invoice_line('Стоимость товаров', invoice.goods_price_total) }}
+                            {{ invoice_line('Услуги Sim Sim', invoice.simsim_commission) }}
+                        {% endif %}
+                        {% if invoice.type == invoice.TYPE_CONSOLIDATION %}
+                            {{ invoice_line('Стоимость доставки', invoice.delivery_total) }}
+                        {% endif %}
+                        <div class="line last">
+                            <span class="first">Сумма к оплате:</span>
+                            <span class="second">${{ invoice.total }}</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('cabinet.index') }}" class="goback">Вернуться к моим заказам</a>
+                </div>
+                <div class="col-md-8 col-sm-7 col-xs-12">
+                    <form action="" method="post" enctype="application/x-www-form-urlencoded" data-card-form>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" >
+                        <div class="cardform">
+                            <div class="alert alert-danger" data-error-message {% if not error_message %} style="display:none" {% endif %}>{{ error_message }}</div>
+                            <div class="card-wrapper"></div>
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="pretty-form__item-content">
+                                        <input type="text" data-number>
+                                        <label>{{ ('Номер карты') }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="pretty-form__item-content">
+                                        <input type="text" data-name>
+                                        <label>{{ ('Имя на карте') }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="pretty-form__item-content">
+                                        <input type="text" data-expiry>
+                                        <label>{{ ('Срок действия') }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="pretty-form__item-content">
+                                        <input type="text" data-cvc>
+                                        <label>SVС/CVV</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="pay">
+                        <p>
+                            Нажимая на кнопку оплаты вы соглашаетесь<br>
+                            с
+                            <a href="{{ url_for('page.render', slug='agreements') }}" target="_blank">Пользовательским соглашением</a> и
+                            <a href="{{ url_for('page.render', slug='guarantees-insurance') }}" target="_blank">Гарантиями и страховкой</a>
+                        </p>
+                        <button type="submit" class="btn btn-default ss-btn ss-btn-orange">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            Оплатить - ${{ invoice.total }}
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block scripts_bottom %}
+    {{ super() }}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+      Stripe.setPublishableKey('{{ config.STRIPE_PUBLIC_KEY }}');
+      $(function() {
+        $form = $('form[data-card-form]');
+        $submitButton = $form.find('button[type="submit"]');
+        $errorMessage = $form.find('[data-error-message]');
+        $form.submit(function(event) {
+          $submitButton.prop('disabled', true);
+          $errorMessage.empty().hide();
+
+          var cardData = {
+            number: $form.find('input[data-number]').val(),
+            cvc: parseInt($form.find('input[data-cvc]').val()),
+            exp_month: parseInt($form.find('input[data-expiry]').val().split('/')[0]),
+            exp_year: parseInt($form.find('input[data-expiry]').val().split('/')[1]),
+            name: $form.find('input[data-name]').val()
+          };
+          console.log(cardData);
+          Stripe.card.createToken(cardData, function(status, response) {
+            if(response.error) {
+                $submitButton.prop('disabled', false);
+                $errorMessage.html(response.error.message).show();
+            }else{
+                var token = response.id;
+                $form.append($('<input type="hidden" name="stripe_token" />').val(token));
+                $form.get(0).submit();
+            }
+            console.log(status);
+            console.log(response);
+          });
+
+          return false;
+        });
+      });
+    </script>
+    <script type="text/javascript">
+        $('form[data-card-form]').card({
+            container: '.card-wrapper',
+            formSelectors: {
+                numberInput: 'input[data-number]', // optional — default input[name="number"]
+                expiryInput: 'input[data-expiry]', // optional — default input[name="expiry"]
+                cvcInput: 'input[data-cvc]', // optional — default input[name="cvc"]
+                nameInput: 'input[data-name]' // optional - defaults input[name="name"]
+            },
+        });
+    </script>
+{% endblock scripts_bottom %}

@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% import 'macros/form.html' as form %}
+
+{% block content %}
+    <div class="wide-wrapper">
+        <section class="inner-white-bg">
+            <div class="container consolidation">
+                <div class="row">
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <h1>
+                            <img class="img-icon" src="/static/img/order-form-icon1.png" alt="">
+                            Консолидация
+                        </h1>
+                        <h2 class="subtitle"><span>Добавить товар</span></h2>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="steps">
+                            <span class="step curent" id="step-first-child">1</span>
+                            <span class="step">2</span>
+                            <div class="clearfix"></div>
+                            <span class="stepDesc curent" id="step-desc-first-child">
+                                Добавить<br>товар
+                            </span>
+                            <span class="stepDesc">
+                                Персональные<br>данные
+                            </span>
+                        </div>
+                    </div>
+                    <form method="post" enctype="application/x-www-form-urlencoded" class="consolidation-service-form" data-active-form  data-next="{{ url_for('services.consolidation_user_info') }}">
+                        <div class="col-md-9">
+                            {% for consolidation_item in consolidation_form.items %}
+                                <div class="form-block" data-form-index="{{ loop.index0	}}" data-active-form-item>
+                                    <div class="row">
+                                        <div class="col-md-12 clearfix">
+                                            <h3 class="pull-left">Товар №<span class="product-index-counter">1</span></h3>
+                                            <a data-button="product-remove" class="pull-right" href="#"><i class="glyphicon glyphicon-remove"></i> </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form.render_field(consolidation_item.url) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.render_field(consolidation_item.tracking_id) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.render_field(consolidation_item.price) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form.render_field(consolidation_item.quantity) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form.render_field(consolidation_item.comment, rows="4") }}
+                                        </div>
+                                        <div class="col-md-12 form-hint text-right">
+                                            * - поля обязательные для заполнения
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            {% endfor %}
+
+                            <div class="col-md-12">
+                                <a href="#" data-button="add-product" class="btn btn-default ss-btn more">Добавить еще товар</a>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="{{ url_for('static.index') }}" class="btn btn-default ss-btn">Назад</a>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-primary ss-btn ss-btn-red" data-button="submit">Далее</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-3">
+                        <p class="help">
+                            При покупке товаров в интернет магазинах обязательно укажите адрес нашего склада
+                            <table class="table consolidation-hint-table">
+                                <tr>
+                                    <td>First Name</td>
+                                    <td>Abc Def Company</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Second Name</td>
+                                    <td>Attention: John</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Address</td>
+                                    <td>000000, 123 ND St. Springfield</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>City</td>
+                                    <td>New York</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>State</td>
+                                    <td>NY</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>ZIP</td>
+                                    <td>11413</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>+1112233222</td>
+                                </tr>
+                            </table>
+                            
+                            Укажите данные о ваших посылках.
+                            Как только все будет у нас на складе, наши сотрудники сделают сверку, обработают все и упакуют.
+                            В личным кабинете вы получите инвойс для оплаты доставки.
+                            После оплаты ваши покупки будут незамедлительно отправлены.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}

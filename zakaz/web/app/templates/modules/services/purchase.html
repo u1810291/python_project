@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% import 'macros/form.html' as form %}
+
+{% block content %}
+    <div class="wide-wrapper">
+        <section class="inner-white-bg">
+            <div class="container consolidation">
+                <div class="row">
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <h1>
+                            <img class="img-icon" src="/static/img/order-form-icon1.png" alt="">
+                            Купить и доставить
+                        </h1>
+                        <h2 class="subtitle"><span>Добавить товар</span></h2>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="steps">
+                            <span class="step curent" id="step-first-child">1</span>
+                            <span class="step">2</span>
+                            <div class="clearfix"></div>
+                            <span class="stepDesc curent" id="step-desc-first-child">
+                                Добавить<br>товар
+                            </span>
+                            <span class="stepDesc">
+                                Персональные<br>данные
+                            </span>
+                        </div>
+                    </div>
+                    <form method="post" enctype="application/x-www-form-urlencoded" class="purchase-service-form" data-active-form  data-next="{{ url_for('services.purchase_user_info') }}">
+                        <div class="col-md-9">
+                            {% for purchase_item in purchase_form.items %}
+                                <div class="form-block" data-form-index="{{ loop.index0	}}" data-active-form-item>
+                                    <div class="row">
+                                        <div class="col-md-12 clearfix">
+                                            <h3 class="pull-left">Товар №<span class="product-index-counter">1</span></h3>
+                                            <a data-button="product-remove" class="pull-right" href="#"><i class="glyphicon glyphicon-remove"></i> </a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form.render_field(purchase_item.url) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.render_field(purchase_item.quantity) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.render_field(purchase_item.price) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.render_field(purchase_item.size) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.render_field(purchase_item.color) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form.render_field(purchase_item.discount) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form.render_field(purchase_item.comment, rows="4") }}
+                                        </div>
+                                        <div class="col-md-12 form-hint text-right">
+                                            * - поля обязательные для заполнения
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            {% endfor %}
+
+                            <div class="col-md-12">
+                                <a href="#" data-button="add-product" class="btn btn-default ss-btn more">Добавить еще товар</a>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="{{ url_for('static.index') }}" class="btn btn-default ss-btn">Назад</a>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-primary ss-btn ss-btn-red" data-button="submit">Далее</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-3">
+                        <p class="help">
+                            Вставьте ссылку на нужный вам товар; укажите цвет, размер и количество этого товара; если есть дополнительные опции - напишите их в комментариях. 
+                            После оформления заказа наш оператор свяжется с вами, чтобы уточнить все детали и выставить счет на оплату за товары. 
+                            Все остальное мы сделаем сами - получим, проверим и упакуем. 
+                            Инвойс на оплату доставки будет выставлен в личном кабинете, после того как все ваши товары будут у нас на складе.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}

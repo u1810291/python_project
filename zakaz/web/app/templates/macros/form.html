@@ -1,0 +1,19 @@
+{% macro render_raw_field(label, input, is_filled=False) %}
+    <div class="pretty-form__item-content {% if is_filled %} input--filled {% endif %}">
+        {{ input | safe }}
+        {{ label | safe }}
+        <span class="field-error" data-field-error style="display:none"></span>
+    </div>
+{% endmacro %}
+
+{% macro render_field(field) %}
+    <div class="pretty-form__item-content {% if field.data %} input--filled {% endif %}">
+        {{ field(**kwargs)|safe }}
+        {{ field.label }}
+        {% if field.errors %}
+            <span class="field-error" data-field-error>{{ field.errors | join('. ') }}</span>
+        {% else %}
+            <span class="field-error" data-field-error style="display:none"></span>
+        {% endif %}
+    </div>
+{% endmacro %}

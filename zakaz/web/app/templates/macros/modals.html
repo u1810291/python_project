@@ -1,0 +1,270 @@
+{% import 'macros/form.html' as form %}
+
+{% macro common(id, title, class=None, closable=True) %}
+    <div id="{{ id }}" class="modal fade bs-modal-common {% if class %}{{ class }}{% endif %}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h1>{{ title }}</h1>
+                {% if closable %}
+                    <button type="button" class="btn btn-default close" data-dismiss="modal"></button>
+                {% endif %}
+                {{ caller() }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro converter() %}
+    <div class="modal fade converter-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close-mini" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Конвертер величин</h4>
+                </div>
+
+                <div class="modal-body-default">
+                    <select class="form-control blue-control" id="converter-category-dropdown">
+                        <option data-converter-category="weight">Вес</option>
+                        <option data-converter-category="length">Длина</option>
+                        <option data-converter-category="capacity">Обьем</option>
+                    </select>
+
+                    <div class="row">
+
+                        <div class="converter-row-first-box">
+                            <div class="input-group">
+                                  <input type="text" class="form-control first-converter-control" aria-label="..." id="fromInput" />
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle converter-dropdown-input-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span data-converter-value=""></span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right converter-items" data-converter-selected-value="" data-converter-type="from">
+
+                                      <!-- Weight -->
+                                      <li data-converter-item="weight" data-converter-item-value="мг"><a href="#">миллиграмм</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="г"><a href="#">грамм</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="кг"><a href="#">килограмм</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="кар."><a href="#">карат</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="унц."><a href="#">унция</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="lb"><a href="#">англ фунт</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="р.ф."><a href="#">рус фунт</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="п."><a href="#">пуд</a></li>
+                                      <!-- /Weight -->
+
+                                      <!-- Lenght -->
+                                      <li data-converter-item="length" data-converter-item-value="мм"><a href="#">милиметр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="см"><a href="#">сантиметр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="дм"><a href="#">дециметр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="м"><a href="#">метр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="км"><a href="#">километр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="yd"><a href="#">ярд</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="ft"><a href="#">фут</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="in"><a href="#">дюйм</a></li>
+                                      <!-- /Lenght -->
+
+                                      <!--Capacity -->
+                                      <li data-converter-item="capacity" data-converter-item-value="м3"><a href="#">кубометр (м3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="дм3"><a href="#">куб. дм (дм3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="см3"><a href="#">куб. см (см3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="мм3"><a href="#">куб. мм (мм3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="in3"><a href="#">куб. дюйм (in3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="ft3"><a href="#">куб. фут (ft3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="yd3"><a href="#">куб. ярд (yd3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="fl*oz (UK)"><a href="#">унция  (Великобр.)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="fl*oz (US)"><a href="#">унция  (США)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="л"><a href="#">литр (л)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="мл"><a href="#">миллилитр (мл)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="gal"><a href="#">галлон (gal)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="qt"><a href="#">кварта (qt)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="pt"><a href="#">пинта (pt)</a></li>
+                                      <!--/Capacity -->
+
+                                    </ul>
+                                  </div>
+                            </div>
+                        </div>
+
+                        <div class="converter-row-middle-box">
+                            <span class="middle-equality-operator">=</span>
+                        </div>
+
+                        <div class="converter-row-second-box">
+                            <div class="input-group">
+                                  <input type="text" class="form-control second-converter-control" aria-label="..." id="toInput" />
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle converter-dropdown-input-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span data-converter-value=""></span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right converter-items" data-converter-selected-value="" data-converter-type="to">
+
+                                      <!-- Weight -->
+                                      <li data-converter-item="weight" data-converter-item-value="мг"><a href="#">миллиграмм</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="г"><a href="#">грамм</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="кг"><a href="#">килограмм</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="кар."><a href="#">карат</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="унц."><a href="#">унция</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="lb"><a href="#">англ фунт</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="р.ф."><a href="#">рус фунт</a></li>
+                                      <li data-converter-item="weight" data-converter-item-value="п."><a href="#">пуд</a></li>
+                                      <!-- /Weight -->
+
+                                      <!-- Lenght -->
+                                      <li data-converter-item="length" data-converter-item-value="мм"><a href="#">милиметр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="см"><a href="#">сантиметр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="дм"><a href="#">дециметр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="м"><a href="#">метр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="км"><a href="#">километр</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="yd"><a href="#">ярд</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="ft"><a href="#">фут</a></li>
+                                      <li data-converter-item="length" data-converter-item-value="in"><a href="#">дюйм</a></li>
+                                      <!-- /Lenght -->
+
+                                      <!--Capacity -->
+                                      <li data-converter-item="capacity" data-converter-item-value="м3"><a href="#">кубометр (м3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="дм3"><a href="#">куб. дм (дм3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="см3"><a href="#">куб. см (см3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="мм3"><a href="#">куб. мм (мм3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="in3"><a href="#">куб. дюйм (in3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="ft3"><a href="#">куб. фут (ft3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="yd3"><a href="#">куб. ярд (yd3)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="fl*oz (UK)"><a href="#">унция  (Великобр.)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="fl*oz (US)"><a href="#">унция  (США)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="л"><a href="#">литр (л)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="мл"><a href="#">миллилитр (мл)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="gal"><a href="#">галлон (gal)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="qt"><a href="#">кварта (qt)</a></li>
+                                      <li data-converter-item="capacity" data-converter-item-value="pt"><a href="#">пинта (pt)</a></li>
+                                      <!--/Capacity -->
+
+                                    </ul>
+                                  </div><!-- /btn-group -->
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro calculator() %}
+    <div class="modal fade order-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close-min" data-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title" id="myModalLabel">Стоимость заказа</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 order-radio">
+                            <input type="radio" name="type" data-calculator-method="consolidation" data-url="{{ url_for('services.consolidation') }}"/> <span>Только доставка</span>
+                        </div>
+
+                        <div class="col-lg-5 order-radio">
+                            <input type="radio" name="type" data-calculator-method="order" data-url="{{ url_for('services.purchase') }}" checked="checked" /> <span>Покупка и доставка</span>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="pretty-form__item-content">
+                                <input type="text" id="sum" data-calculator-input="price"/><label for="sum">Стоимость товаров ($)</label>
+                            </div>
+
+                            <div class="pretty-form__item-content pretty-top">
+                                <input type="text" id="text" data-calculator-input="weight" /><label for="text"> Вес товаров (кг)</label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <table class="table order-table table-no-boder">
+                                <tbody>
+                                    <tr class="order-description-percentage">
+                                        <td>Стоимость услуги компании</td>
+                                        <td>
+                                            <span class="currency">%</span><strong>6</strong>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Доставка. <span data-calculator-price="">8</span>$ за кг</td>
+                                        <td>
+                                            <span class="currency">$</span><strong data-calculator-price="">8</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-6 text-center">
+                            <button type="button" class="btn btn-primary btn-order">Оформить заказ</button>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <h4 class="summary">Итого за все</h4>
+                            <span class="total-price">0</span>$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro signin(signin_url) %}
+    {% call common('signin_modal', 'Авторизация', 'bs-modal-signin') %}
+        <div class="alert alert-danger" data-form-alert style="display:none"></div>
+        <form action="{{ signin_url }}" method="post">
+            {{ form.render_raw_field('<label>E-mail</label>', '<input name="email" type="email">') }}
+            {{ form.render_raw_field('<label>Пароль</label>', '<input name="password" type="password">') }}
+            <!--<a href="#" class="forgot" data-dismiss="modal" data-toggle="modal" data-target="#restore_password_modal">Забыли пароль?</a>-->
+            <div class="clearfix"></div>
+            <a href="" class="btn btn-default ss-btn ss-btn-red" data-button="submit">Войти</a>
+            <a href="{{ url_for('auth.signup') }}" class="signup">Регистрация</a>
+        </form>
+    {% endcall %}
+{% endmacro %}
+
+{% macro restore(restore_url) %}
+    {% call common('restore_password_modal', 'Восстановление пароля', 'bs-modal-restore') %}
+        <form action="{{ restore_url }}" method="post">
+            {{ form.render_raw_field('<label>E-mail</label>', '<input name="email" type="email">') }}
+            <div class="clearfix"></div>
+            <a href="" class="btn btn-default ss-btn ss-btn-red" data-success-modal="#after_restore_password_modal" data-button="submit">Восстановить</a>
+        </form>
+        <a href="#" class="back-to-login" data-dismiss="modal" data-toggle="modal" data-target="#signin_modal">Назад</a>
+    {% endcall %}
+{% endmacro %}
+
+
+
+{% macro after_restore() %}
+    {% call common('after_restore_password_modal', 'Проверьте почту') %}
+        <div class="alert alert-success">
+            Мы отправили вам письмо с ссылкой на страницу восстановления пароля.
+            Проверьте почту.
+        </div>
+    {% endcall %}
+{% endmacro %}
+
+
+{% macro signin2(signin_url, current_route) %}
+    {% call common('signin2_modal', 'Всего один шаг!', 'bs-modal-signin2 bs-modal-signin', False) %}
+        <p>
+            Похоже, вы не авторизовались. Войдите или зарегистрируйтесь.
+            Мы вернем вас на эту страницу и вы сможете продолжить.
+        </p>
+        <form action="{{ signin_url }}" method="post">
+            {{ form.render_raw_field('<label>E-mail</label>', '<input name="email" type="email">') }}
+            {{ form.render_raw_field('<label>Пароль</label>', '<input name="password" type="password">') }}
+            <div class="clearfix"></div>
+            <a href="" class="btn btn-default ss-btn ss-btn-red" data-button="submit">Войти</a>
+            <a href="{{ url_for('auth.signup', return_to=current_route) }}" class="signup">Регистрация</a>
+        </form>
+    {% endcall %}
+{% endmacro %}

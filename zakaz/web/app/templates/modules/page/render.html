@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="wide-wrapper">
+        <section class="inner-white-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h1>
+                            <img class="img-icon" src="/static/img/order-form-icon1.png" alt="">
+                            Информация
+                        </h1>
+                        <h2 class="subtitle"><span>{{ page.title }}</span></h2>
+                    </div>
+                    <div class="col-md-12">
+                        {{ page.content | safe }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,187 @@
+.pretty-form {
+    position: relative
+}
+
+.pretty-form h3 {
+    margin-bottom: 1em
+}
+
+.pretty-form fieldset {
+    display: table;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1.5em;
+    padding-bottom: 35px
+}
+
+.pretty-form fieldset:last-child {
+    border: none;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important
+}
+
+.pretty-form fieldset h4 {
+    margin-bottom: 1em
+}
+
+.pretty-form.with-message .changed .message {
+    display: none
+}
+
+.pretty-form.with-message .message {
+    bottom: 100%;
+    top: auto
+}
+
+.pretty-form .password-reset {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    padding-top: .3em
+}
+
+.pretty-form .password-field input[type=password], .pretty-form .password-field input[type=password] + input {
+    padding-right: 45px
+}
+
+.pretty-form .hint {
+    color: #c00;
+    font-size: 1.2rem;
+    display: none;
+    padding-top: .2em
+}
+
+.pretty-form .invalid.blured .hint, .pretty-form .invalid .input--filled.input--untouched {
+    display: block
+}
+
+.pretty-form__item {
+    margin-bottom: 1em;
+    position: relative
+}
+
+.pretty-form__item.middle {
+    width: 50%
+}
+
+.pretty-form__item.short {
+    width: 15em
+}
+
+.pretty-form__item.invalid.blured input[type=email]:not([readonly=readonly]), .pretty-form__item.invalid.blured input[type=number]:not([readonly=readonly]), .pretty-form__item.invalid.blured input[type=password] + input:not([readonly=readonly]), .pretty-form__item.invalid.blured input[type=password]:not([readonly=readonly]), .pretty-form__item.invalid.blured input[type=tel]:not([readonly=readonly]), .pretty-form__item.invalid.blured input[type=text]:not([readonly=readonly]), .pretty-form__item.invalid.blured select:not([readonly=readonly]), .pretty-form__item.invalid.blured textarea:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched input[type=email]:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched input[type=number]:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched input[type=password] + input:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched input[type=password]:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched input[type=tel]:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched input[type=text]:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched select:not([readonly=readonly]), .pretty-form__item.invalid .input--filled.input--untouched textarea:not([readonly=readonly]) {
+    background: #fff4ef;
+    border-color: #ff5000;
+    color: #ff5000
+}
+
+.pretty-form__item-content {
+    display: block;
+    position: relative
+}
+
+.pretty-form_static .pretty-form__item-content {
+    border-color: transparent;
+    background: none;
+    color: #000
+}
+
+.pretty-form_static .pretty-form__item-content .control_button_password {
+    opacity: 0
+}
+
+.pretty-form__item-content label {
+    color: #966e6e;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    font-size: 1.4rem;
+    position: absolute;
+    top: 1.1em;
+    left: 1.4rem;
+    display: block;
+    width: -webkit-calc(100% - 2.8rem);
+    width: -moz-calc(100% - 2.8rem);
+    width: calc(100% - 2.8rem);
+    text-align: left;
+    padding: 0;
+    pointer-events: none;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transition: color .5s, -webkit-transform .1s .1s;
+    transition: color .5s, -webkit-transform .1s .1s;
+    -moz-transition: transform .1s .1s, color .5s, -moz-transform .1s .1s;
+    -o-transition: transform .1s .1s, color .5s, -o-transform .1s .1s;
+    transition: transform .1s .1s, color .5s;
+    transition: transform .1s .1s, color .5s, -webkit-transform .1s .1s, -moz-transform .1s .1s, -o-transform .1s .1s;
+    -webkit-transition-timing-function: cubic-bezier(0, .25, .5, 1);
+    -moz-transition-timing-function: cubic-bezier(0, .25, .5, 1);
+    -o-transition-timing-function: cubic-bezier(0, .25, .5, 1);
+    transition-timing-function: cubic-bezier(0, .25, .5, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: 300;
+}
+
+.opera .pretty-form__item-content label::-moz-selection {
+    color: inherit
+}
+
+.opera .pretty-form__item-content label::selection {
+    color: inherit
+}
+
+.pretty-form__item-content.input--filled input ~ label, .pretty-form__item-content.input--filled select ~ label, .pretty-form__item-content.input--filled textarea ~ label, .pretty-form__item-content input:focus ~ label, .pretty-form__item-content select:focus ~ label, .pretty-form__item-content textarea:focus ~ label {
+    -webkit-transform: translate3d(0, -.6em, 0) scale3d(.85, .85, 1);
+    -moz-transform: translate3d(0, -.6em, 0) scale3d(.85, .85, 1);
+    transform: translate3d(0, -.6em, 0) scale3d(.85, .85, 1)
+}
+
+.pretty-form__item-content input[type=email], .pretty-form__item-content input[type=number], .pretty-form__item-content input[type=password], .pretty-form__item-content input[type=password] + input, .pretty-form__item-content input[type=tel], .pretty-form__item-content input[type=text], .pretty-form__item-content select, .pretty-form__item-content textarea {
+    height: 5rem;
+    padding: 1.3em 1.2rem 0;
+    width: 100%
+}
+
+.pretty-form__item-content textarea {
+    height: 12rem;
+    padding-top: 1.7em;
+    margin: 0
+}
+
+.pretty-form__item.password-field input[type=password], .pretty-form__item.password-field input[type=password] + input, .pretty-form__item input[type=email], .pretty-form__item input[type=number], .pretty-form__item input[type=password], .pretty-form__item input[type=password] + input, .pretty-form__item input[type=tel], .pretty-form__item input[type=text], .pretty-form__item select, .pretty-form__item textarea {
+    letter-spacing: .03em;
+    max-width: 100% !important;
+    width: 100%
+}
+
+.pretty-form__item select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+.firefox .pretty-form__item select {
+    padding-left: .8rem
+}
+
+.pretty-form__item select.combolist {
+    border: 1px solid #acacac;
+    height: 20rem;
+    padding-top: .5rem
+}
+
+.pretty-form__item input[type=email]:invalid {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none
+}
+

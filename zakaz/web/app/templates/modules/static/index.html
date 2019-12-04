@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+{% import 'macros/etc.html' as etc %}
+
+{% block body_class %}{% endblock %}
+
+{% block top_banner %}
+    
+    <div class="top-banner">
+    <a href="{{ url_for('catalogue.index') }}" class="hidden-xs">
+        <img src="/static/img/topbanner.jpg" class="" alt="">
+    </a>
+    <a href="{{ url_for('catalogue.index') }}" class="visible-xs text-center">
+        <img src="/static/img/topbanner-mini.jpg" class="img-responsive" alt="">
+    </a>
+</div>
+{% endblock top_banner %}
+
+{% block content %}
+<div class="bg-cover-head">
+    <div class="part-1"></div>
+    <div class="part-2"></div>
+    <div class="part-3"></div>
+</div>
+    <div class="ss-service-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>
+                        Доставка товаров из лучших магазинов со всего мира
+                    </h1>
+                </div>
+            </div>
+            <br>
+            <div class="row ">
+                <div class="col-md-4">
+                    <p>
+                    Пользуясь каталогом интернет-магазинов на нашем сайте найлите нужный вам товар и пришлите нам ссылки на них
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ss-service-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="ss-service-section-block between-space">
+                        <h2>Консолидация</h2>
+                        <p>
+                            Просто Быстро Надежно <br>
+                            Срок доставки 7 дней, 7$ за килограмм <br>
+                            и никаких скрытых платежей !
+                        </p>
+                        <a class="btn custom-btn ss-btn txt-red" href="{{ url_for('services.consolidation') }}" role="button">
+                            Консолидация <span class="custom-arrow">&nbsp;&nbsp;&nbsp;&nbsp;&#8250;</span>
+                            <!-- <img src="/static/img/arrow.png"> -->
+                        </a>
+                        <img src="/static/img/cart.png" alt="Consolidation">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="ss-service-section-block">
+                        <h2>Купить и доставить</h2>
+                        <p>
+                            Найдите интересующий вас товар  <br>
+                            Все остальное мы сделаем за вас <br>
+                            6% от суммы заказа + 6$ за килограмм
+                        </p>
+                        <a class="btn custom-btn ss-btn txt-red" href="{{ url_for('services.purchase') }}" role="button">
+                            Оформать заказ <span class="custom-arrow">&nbsp;&nbsp;&nbsp;&nbsp;&#8250;</span>
+                            <!-- <img src="/static/img/arrow.png"> -->
+                        </a>
+                        <img src="/static/img/box.png" alt="Delivery">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="how-it-works-section">
+        <div class="container">
+            <h4>ИНСТРУКЦИЯ</h4>
+            <h1>Как это работает</h1>
+            <div class="how-it-works-section_block">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="/static/img/step_1.jpg" alt="">
+
+                        <h5>Выберите товар</h5>
+
+                        <p>Пользуясь <a href="{{ url_for('catalogue.index') }}" class="txt-red">каталогом</a> интернет-магазинов на нашем сайте найдите нужный вам товар и пришлите нам ссылки на них.</p>
+
+
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <hr class="hidden-md hidden-lg">
+                        <img src="/static/img/step_2.jpg" alt="">
+
+                        <h5>Упаковка и отправка</h5>
+
+                        <p>Мы бережно упакуем Вашу посылку и отправим самолетом</p>
+                        <hr class="hidden-md hidden-lg">
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <img src="/static/img/step_3.jpg" alt="">
+
+                        <h5>Доставим прямо в руки</h5>
+
+                        <p>Курьер доставит посылку Вам прямо в руки</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- {{ etc.services_buttons_widget() }} -->
+
+{% endblock content %}

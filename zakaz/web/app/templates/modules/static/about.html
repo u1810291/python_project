@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% import 'macros/etc.html' as etc %}
+
+{% block body_class %}{% endblock %}
+
+{% block content %}
+    <div class="about-banner">
+        <img src="/static/img/about-banner.png" class="img-responsive">
+    </div>
+
+    <div class="wide-wrapper">
+        <section class="inner-white-bg">
+            <div class="container itemFaq">
+                <div class="row about-item">
+                    <div class="col-md-8">
+                        <h1 class="about-heading">Aladin store предлагает вам услуги по покупке и доставке товаров из США</h1>
+                        <article>
+                            Всего за несколько шагов вы сможете оформить заказ на нашем сайте:
+                            <ol>
+                                <li>Найдите интересующий вас товар в любом из интернет магазинов США и добавьте ссылку на него в форму заказа.</li>
+                                <li>Оплатите инвойс, присланный нашим оператором.</li>
+                                <li>Ожидайте ваши товары. Срок доставки 2 недели</li>
+                            </ol>
+                        </article>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="about-placeholder">
+                            <img src="/static/img/tmp-1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {{ etc.services_buttons_widget() }}
+
+{% endblock content %}

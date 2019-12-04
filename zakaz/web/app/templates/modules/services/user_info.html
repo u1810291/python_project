@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+{% import 'macros/form.html' as form %}
+{% import 'macros/modals.html' as modals %}
+
+{% set current_user_name = '' %}
+{% set current_user_phone = '' %}
+{% set current_user_email = '' %}
+{% set current_user_address = '' %}
+{% if current_user.is_authenticated %}
+    {% set current_user_name = current_user.name %}
+    {% set current_user_phone = current_user.phone %}
+    {% set current_user_email = current_user.email %}
+    {% set current_user_address = current_user.address %}
+{% endif %}
+
+
+{% block content %}
+    {% if not current_user.is_authenticated %}
+        {{ modals.signin2(url_for('auth.signin'), url_rule) }}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.bs-modal-signin2').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                 });
+            });
+        </script>
+    {% endif %}
+    <div class="wide-wrapper">
+        <section class="inner-white-bg">
+            <div class="container consolidation">
+                <div class="row">
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <h1>
+                            <img class="img-icon" src="/static/img/order-form-icon1.png" alt="">
+                            Укажите свои данные
+                        </h1>
+                        <h3 class="subtitle"><span>Персональные данные</span></h3>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="steps">
+                            <span class="step" id="step-first-child">1</span>
+                            <span class="step curent">2</span>
+                            <div class="clearfix"></div>
+                            <span class="stepDesc" id="step-desc-first-child">
+                                Добавить<br>товар
+                            </span>
+                            <span class="stepDesc curent">
+                                Персональные<br>данные
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <form action="" method="post" enctype="application/x-www-form-urlencoded" class="user_info_form" data-active-form data-next="{{ url_for('cabinet.import_order') }}">
+                            <div class="form-block">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.render_raw_field('<label>Имя и фамилия</label>', '<input type="text" readonly="readonly" value="'+current_user_name+'">', current_user_name != '') }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.render_raw_field('<label>Контактный телефон</label>', '<input type="text" readonly="readonly" value="'+current_user_phone+'">', current_user_phone != '') }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form.render_raw_field('<label>E-mail</label>', '<input type="email" readonly="readonly" value="'+current_user_email+'">', current_user_email != '') }}
+                                    </div>
+                                    <div class="col-md-12">
+                                        {{ form.render_field(user_info_form.address) }}
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="confirm">
+                                <input type="checkbox" id="checkbox01" class="css-checkbox" data-action-enable-checkout>
+                                <label for="checkbox01" class="css-label radGroup1 bold">С правилами согласен</label>
+                                <p>
+                                    Ознакомиться
+                                    с
+                                    <a href="{{ url_for('page.render', slug='agreements') }}" target="_blank">Пользовательским соглашением</a> и
+                                    <a href="{{ url_for('page.render', slug='guarantees-insurance') }}" target="_blank">Гарантиями и страховкой</a>
+                                </p>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="{{ service_url }}" class="btn btn-default ss-btn">Назад</a>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-default ss-btn ss-btn-orange" disabled="disabled" data-button="submit">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                    Оформить заказ
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="help">
+                            Page Flip makes it easy to find pictures, charts, maps and even your notes and highlights
+                            from different parts of a book. While you swipe to other pages or zoom out to see page thumbnails,
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}

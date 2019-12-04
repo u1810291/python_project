@@ -1,0 +1,348 @@
+{% import 'macros/modals.html' as modals %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        {% block meta %}
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="format-detection" content="telephone=no">
+            <meta name="csrf-param" content="_csrf">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+        {% endblock meta %}
+
+        <title>{% block title %} Aladin Zakaz - {% endblock %}</title>
+
+        {% block styles %}
+            {% assets filters="cssutils", output="base-min.css",
+                "dist/css/bootstrap.min.css",
+                "dist/css/font-awesome.min.css",
+                "dist/css/pretty-forms.css",
+                "css/new.css",
+                "css/main.css",
+                "css/custom.css"
+            %}
+                <link rel="stylesheet" href="{{ ASSET_URL }}">
+            {% endassets %}
+        {% endblock styles %}
+
+        {% block scripts_top %}
+            {% assets filters="jsmin", output="base-top-min.js", "dist/js/jquery-3.1.0.min.js" %}
+                <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+            {% endassets %}
+        {% endblock scripts_top %}
+
+        {{ config.CHATRA_CODE | safe }}
+        {{ config.GA_CODE | safe }}
+        {{ config.YANDEX_METRIKA_CODE | safe }}
+
+
+        <!--<link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">-->
+        <!--<link rel="icon" type="image/png" href="/static/img/favicon-32x32.png" sizes="32x32">-->
+        <!--<link rel="icon" type="image/png" href="/static/img/favicon-16x16.png" sizes="16x16">-->
+        <!--<link rel="manifest" href="/static/img/manifest.json">-->
+        <!--<link rel="mask-icon" href="/static/img/safari-pinned-tab.svg" color="#4961f7">-->
+        <!--<link rel="shortcut icon" href="/static/img/favicon.ico">-->
+        <!--<meta name="apple-mobile-web-app-title" content="Simsim Store">-->
+        <!--<meta name="application-name" content="Simsim Store">-->
+        <!--<meta name="msapplication-config" content="/static/img/browserconfig.xml">-->
+        <!--<meta name="theme-color" content="#ffffff">-->
+    {% endblock head %}
+</head>
+<body {% block body_class %} class="inner-page" {% endblock %}>
+{% block modals %}
+    {{ modals.converter() }}
+    {{ modals.calculator() }}
+    {{ modals.signin(url_for('auth.signin')) }}
+    {{ modals.restore(url_for('auth.restore_init')) }}
+    {{ modals.after_restore() }}
+{% endblock modals %}
+
+{% block sticky_left_buttons %}
+    <button type="button" class="ss-float-block hidden-xs" data-toggle="modal" data-target=".order-modal-lg">
+        <i class="fa fa-calculator" aria-hidden="true"></i>
+    </button>
+
+    <button type="button" class="fixed-button-converter hidden-xs" data-toggle="modal" data-target=".converter-modal">
+        <i class="fa fa-stumbleupon" aria-hidden="true"></i>
+    </button>
+{% endblock %}
+
+<nav class="navbar ss-fixed-navbar hidden-xs custom-nav txt-cream">
+    <div class="container">
+        <div class="float-right">
+            <a href="https://www.facebook.com/simsimstore.uz" target="_blank">
+                <div class="ss-navbar-block">
+                    <img src="/static/img/fb_icon.png" alt="facebook" title="facebook">
+                </div>
+            </a>
+            <a href="https://www.instagram.com/simsimstore.uz/" target="_blank">
+                <div class="ss-navbar-block">
+                    <img src="/static/img/insta_icon.png" alt="instagram" title="instagram">
+                </div>
+            </a>
+            <div class="ss-navbar-block ss-border-left">
+               Техподдержка: +998 71 1112233
+            </div>
+
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('cabinet.index') }}">
+                    <div class="ss-navbar-block">
+                        <i class="fa fa-user red" aria-hidden="true"></i>
+                        {{ current_user.name | e }}
+                    </div>
+                </a>
+            {% else %}
+                <a href="" data-toggle="modal" data-target="#signin_modal">
+                    <div class="ss-navbar-block ss-border-left">
+                        <img src="/static/img/sign_in_icon.png" alt="Sign In" class="icon-sign-in">
+                        <span class="txt-sign-in">Войти / Регистрация</span>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-default ss-main-nav custom-nav">
+    <div class="container remove-containing">
+        <ul class="nav navbar-nav navbar-left ss-logo col-xs-3">
+            <li>
+                <a href="{{ url_for('static.index') }}">
+                    <img src="/static/img/new_logo.png" onerror="this.onerror=null; this.src='/static/img/new_logo.png'">
+                </a>
+            </li>
+        </ul>
+
+        <div class="dropdown ss-canvas">
+            <a class="bar-btn visible-xs" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                <li>
+                    <img src="/static/img/new_logo.png" onerror="this.onerror=null; this.src='/static/img/new_logo.png'">
+                    <a href="" class="ss-close-canvas float-right">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="ss-canvas-item red-bg white">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('cabinet.index') }}">{{ current_user.name }}</a>
+                    {% else %}
+                        <a href="" data-toggle="modal" data-target="#signin_modal">Войти / Регистрация</a>
+                    {% endif %}
+                </li>
+                <li class="ss-canvas-item">
+                    <a href="" data-toggle="modal" data-target=".converter-modal">
+                        Конвертер
+                    </a>
+                </li>
+                <li class="ss-canvas-item">
+                    <a href="" data-toggle="modal" data-target=".order-modal-lg">
+                        Калькулятор
+                    </a>
+                </li>
+                <li class="ss-canvas-item">
+                    <a href="{{ url_for('services.consolidation') }}">Консолидация</a>
+                </li>
+                <li class="ss-canvas-item>
+                    <a href="{{ url_for('services.purchase') }}">Купить и доставить</a>
+                </li>
+                <li class="ss-canvas-item">
+                    <a href="{{ url_for('catalogue.index') }}">Каталог магазинов</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <ul class="nav navbar-nav navbar-right hidden-xs ss-nav-menu">
+            <li><a href="{{ url_for('services.consolidation') }}" class="txt-light">Консолидация</a></li>
+            <li><a href="{{ url_for('services.purchase') }}" class="txt-light">Купить и доставить</a></li>
+            <li><a href="{{ url_for('catalogue.index') }}" class="txt-light">Контакты</a></li>
+        </ul>
+    </div>
+</nav>
+
+<nav class="navbar navbar-default text-center support-phone visible-xs">
+    <span>Позвоните нам:</span> <a href="tel:++998711112233">+998 71 1112233</a>
+</nav>
+
+{% block content %}
+    <div class="ss-service-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="ss-service-section-block between-space">
+                        <h2>Нужна только доставка</h2>
+
+                        <p>Компания Uber обновила свой логотип и представила новый фирменный стиль, в котором отказалась от использования черно-белой палитры. </p>
+
+                        <a class="btn btn-default ss-btn ss-btn-orange" href="#" role="button">КОНСОЛИДАЦИЯ</a>
+
+                        <img src="/static/img/float-img1.png" class="" alt="">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="ss-service-section-block">
+                        <h2>Оплата товара и доставка</h2>
+
+                        <p>Компания Uber обновила свой логотип и представила новый фирменный стиль, в котором отказалась от использования черно-белой палитры. </p>
+
+                        <a class="btn btn-default ss-btn ss-btn-orange" href="#" role="button">ОФОРМИТЬ ЗАКАЗ</a>
+
+                        <img src="/static/img/float-img2.png" class="" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="how-it-works-section">
+        <div class="container">
+            <h4>ИНСТРУКЦИЯ</h4>
+            <h1>Как это работает</h1>
+
+            <div class="how-it-works-section_block">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <div>
+                            <span class="ss-label">шаг 1</span>
+                        </div>
+
+                        <img src="/static/img/step1.png" alt="">
+
+                        <h5>Выберите товар</h5>
+
+                        <p>Пользуясь <a href="">каталогом</a> интернет-магазинов на нашем сайте найдите нужный вам товар и пришлите нам ссылки на них.</p>
+
+
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <hr class="hidden-md hidden-lg">
+                        <div><span class="ss-label">шаг 2</span></div>
+
+                        <img src="/static/img/step2.png" alt="">
+
+                        <h5>Упаковка и отправка</h5>
+
+                        <p>Мы бережно упакуем Вашу посылку и отправим самолетом</p>
+                        <hr class="hidden-md hidden-lg">
+                    </div>
+
+                    <div class="col-md-4 text-center">
+                        <div><span class="ss-label">шаг 3</span></div>
+
+                        <img src="/static/img/step3.png" alt="">
+
+                        <h5>Доставим прямо в руки</h5>
+
+                        <p>Курьер доставит посылку Вам прямо в руки</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="ss-gradient-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="ss-service-section-block text-center between-space">
+                        <h2>Нужна только доставка</h2>
+
+                        <p>Доставим купленный Вами товар
+                            прямо до двери</p>
+                        <a class="btn btn-default ss-btn ss-btn-orange" href="#" role="button">КОНСОЛИДАЦИЯ</a>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="ss-service-section-block text-center">
+                        <h2>Оплата товара и доставка</h2>
+
+                        <p>Сделаем все за Вас, и доставим в целости
+                            и сохранности</p>
+                        <a class="btn btn-default ss-btn ss-btn-orange" href="#" role="button">ОФОРМИТЬ ЗАКАЗ</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+{% endblock content %}
+
+{% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center footer-col">
+                    <h3>Нужна только доставка</h3>
+                    <br>
+                    <p>Доставим купленный Вами товар 
+                    <br>
+                        прямо до двери
+                    </p>
+                    <br> 
+                    <button class="btn btn-default ss-btn ss-btn-orange">КОНСОЛИДАЦИЯ</button>
+                </div>
+                <div class="col-md-6 text-center footer-col">
+                    <h3>Оплата товара и доставка</h3>
+                    <br>
+                    <p>Сделаем все за Вас, и доставим в целости
+                    <br>    
+                        и сохранности
+                    </p>
+                    <br>
+                    <button class="btn btn-default ss-btn ss-btn-orange">ОФОРМИТЬ ЗАКАЗ</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div>
+                    <img src="/static/img/logo_footer.png" alt="Aladdin logo" >
+                </div>
+                
+                <div class="footer-links">
+                    
+                    <span ><a href="{{ url_for('services.consolidation') }}">Пользовательское соглашение</a></span>
+                
+                    <span ><a href="{{ url_for('services.purchase') }}">Гарантии и страховки</a></span>
+                
+                    <span ><a href="{{ url_for('catalogue.index') }}">О нас</a></span>
+                    
+                </div>
+                
+                <div class="footer-nav-paycards">
+                    <div class="img-container">
+                        <img src="/static/img/visa.png">
+                    </div>
+                    <div class="img-container">
+                        <img src="/static/img/mastercard.png">
+                    </div>
+                    <p class="copyright">© 2017 Aladin.uz</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock footer %}
+
+
+{% block scripts_bottom %}
+    {% assets filters="jsmin", output="base-bottom-min.js",
+        "dist/js/bootstrap.min.js",
+        "dist/js/jquery.serialize-object.min.js",
+        "dist/js/jquery.card.js",
+        "js/main.js",
+        "js/calc.js",
+        "js/custom.js"
+    %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock scripts_bottom %}
+
+</body>
+</html>

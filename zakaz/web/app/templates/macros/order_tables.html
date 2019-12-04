@@ -1,0 +1,411 @@
+{% macro modal_desktop_item(index, order_item) %}
+    <tr>
+        <td></td>
+        <td>{{ index }}</td>
+        <td><a href="{{ order_item.url }}" target="_blank">{{ order_item.url }}</a></td>
+        <td>{{ order_item.quantity }}</td>
+        <td>{{ order_item.price }}$</td>
+        {% if order_item.order.service == order_item.order.SERVICE_CONSOLIDATION %}
+            <td>{{ order_item.tracking_id }}</td>
+        {% else %}
+            <td>{{ order_item.size }}</td>
+            <td>{{ order_item.color }}</td>
+            <td>{{ order_item.discount }}</td>
+        {% endif %}
+        {% if order_item.order.status in [order_item.order.STATUS_GOODS_PAYMENT_WAITING, order_item.order.STATUS_DELIVERY_PAYMENT_WAITING, order_item.order.STATUS_CUSTOMER_DELIVERY_WAITING, order_item.order.STATUS_FINISHED] %}
+            <th>{{ order_item.weight }}</th>
+        {% endif %}
+        <td>{{ order_item.comment }}</td>
+    </tr>
+
+{% endmacro %}
+
+{% macro modal_desktop_head(order) %}
+    <tr>
+        <th></th>
+        <th>№</th>
+        <th>Ссылка</th>
+        <th>Кол-во</th>
+        <th>Цена</th>
+        {% if order.service == order.SERVICE_CONSOLIDATION %}
+            <th>Tracking ID</th>
+        {% else %}
+            <th>Размер</th>
+            <th>Цвет</th>
+            <th>Промо код</th>
+        {% endif %}
+        {% if order.status in [order.STATUS_GOODS_PAYMENT_WAITING, order.STATUS_DELIVERY_PAYMENT_WAITING, order.STATUS_CUSTOMER_DELIVERY_WAITING, order.STATUS_FINISHED] %}
+            <th>Вес товара(кг)</th>
+        {% endif %}
+        <th>Комментарий</th>
+    </tr>
+
+{% endmacro %}
+
+
+{% macro modal_mobile_content(order) %}
+    <div class="category-mobile-only">
+        <table class="table table-bordered">
+            <tbody>
+                <!-- foreach start -->
+                {% set colspan = 5 %}
+                {% if order.service == order.SERVICE_CONSOLIDATION %}
+                    {% set colspan = 5 %}
+                {% endif %}
+                {% if order.service == order.SERVICE_PURCHASE %}
+                    {% set colspan = 6 %}
+                {% endif %}
+
+                {% for order_item in order.items %}
+                    <tr>
+                        <td colspan="{{ colspan }}">
+                            <a href="{{ order_item.url }}" target="_blank">{{ order_item.url }}</a>
+                        </td>
+                    </tr>
+
+                    <tr class="text-center">
+                        <td class="grey">
+                            <p>Кол-во</p>
+                            <strong>{{ order_item.quantity }}</strong>
+                        </td>
+                        <td>
+                            <p>Вес (кг)</p>
+                            <strong>{{ order_item.weight }}</strong>
+                        </td>
+                        <td class="grey">
+                            <p>Цена</p>
+                            <strong>{{ order_item.price }}$</strong>
+                        </td>
+                        {% if order.service == order.SERVICE_CONSOLIDATION %}
+                            <td>
+                                <p>Tracking ID</p>
+                                <strong>{{ order_item.tracking_id }}</strong>
+                            </td>
+                        {% else %}
+                            <td>
+                                <p>Размер</p>
+                                <strong>{{ order_item.size }}</strong>
+                            </td>
+                            <td class="gray">
+                                <p>Цвет</p>
+                                <strong>{{ order_item.color }}</strong>
+                            </td>
+                            <td>
+                                <p>Промо код</p>
+                                <strong>{{ order_item.discount }}</strong>
+                            </td>
+                        {% endif %}
+                    </tr>
+
+                    <tr>
+                        <td colspan="{{ colspan }}" class="bottom-border">
+                            <p><strong>Комментарий</strong></p>
+
+                            <article>
+                                {{ order_item.comment }}
+                            </article>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <!-- foreach end -->
+                </tbody>
+                <tfoot>
+                    {% if order.status == order.STATUS_PENDING %}
+                        <tr class="bottom-border">
+                            <td colspan="{{ colspan  }}">
+                                <div class="alert alert-info">Ваш заказ находится на рассмотрении оператором</div>
+                            </td>
+                        </tr>
+                    {% elif order.status == order.STATUS_STOCK_DELIVERY_WAITING %}
+                        <tr class="bottom-border">
+                            <td colspan="{{ colspan  }}">
+                                <div class="alert alert-info">Мы ожидаем доставки вашего товара на наши склады в США</div>
+                            </td>
+                        </tr>
+                    {% elif order.status in [order.STATUS_DELIVERY_PAYMENT_WAITING, order.STATUS_GOODS_PAYMENT_WAITING] %}
+                        {% set invoice = None %}
+                        {% if order.status == order.STATUS_DELIVERY_PAYMENT_WAITING %}
+                            {% set invoice = order.invoice_consolidation %}
+                        {% endif %}
+                        {% if order.status == order.STATUS_GOODS_PAYMENT_WAITING %}
+                            {% set invoice = order.invoice_purchase %}
+                        {% endif %}
+
+                        {% if order.status == order.STATUS_DELIVERY_PAYMENT_WAITING %}
+                            <tr class="bottom-border">
+                                <td colspan="{{ colspan - 1 }}">
+                                    <span class="pull-right"><strong>Общая стоимость доставки</strong></span>
+                                </td>
+                                <td class="text-center">
+                                    <strong><span class="text-success">{{ invoice.delivery_total }}</span></strong>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% if order.status == order.STATUS_GOODS_PAYMENT_WAITING %}
+                            <tr class="bottom-border">
+                                <td colspan="{{ colspan - 1 }}">
+                                    <span class="pull-right"><strong>Общая стоимость товаров</strong></span>
+                                </td>
+                                <td class="text-center">
+                                    <strong><span class="text-success">{{ invoice.goods_price_total }}</span></strong>
+                                </td>
+                            </tr>
+                            <tr class="bottom-border">
+                                <td colspan="{{ colspan - 1 }}">
+                                    <span class="pull-right"><strong>Услуги Sim Sim</strong></span>
+                                </td>
+                                <td class="text-center">
+                                    <strong><span class="text-success">{{ invoice.simsim_commission }}</span></strong>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr class="bottom-border">
+                            <td colspan="{{ colspan - 1 }}">
+                                <span class="pull-right"><strong>Итого</strong></span>
+                            </td>
+                            <td class="text-center">
+                                <strong><span class="text-success">{{ invoice.total }}</span></strong>
+                            </td>
+                        </tr>
+                    {% elif order.status == order.STATUS_CUSTOMER_DELIVERY_WAITING %}
+                        <tr class="bottom-border">
+                            <td colspan="{{ colspan  }}">
+                                <div class="alert alert-info">Ваша посылка отправлена. Скоро ее доставят вам лично в руки!</div>
+                            </td>
+                        </tr>
+                    {% elif order.status == order.STATUS_FINISHED %}
+                        <tr class="bottom-border">
+                            <td colspan="{{ colspan  }}">
+                                <div class="alert alert-success">Спасибо что воспользовались услугами SimSim!</div>
+                            </td>
+                        </tr>
+                    {% elif order.status == order.STATUS_REJECTED %}
+                        <tr class="bottom-border">
+                            <td colspan="{{ colspan  }}">
+                                <div class="alert alert-danger">Заказ отменен</div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tfoot>
+
+
+        </table>
+
+        {% if order.status in [order.STATUS_DELIVERY_PAYMENT_WAITING, order.STATUS_GOODS_PAYMENT_WAITING] %}
+            <div class="mobile-button-pay-wrapper">
+                <a href="{{ url_for('cabinet.checkout', invoice_id=invoice.id) }}" class="btn-pay">Оплатить</a>
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro modal_desktop_content(order) %}
+    <div class="category-desktop-only">
+        <table class="table table-striped table-condensed">
+            <thead>
+                {{ modal_desktop_head(order) }}
+            </thead>
+
+            <tbody>
+                {% for order_item in order.items %}
+                    {{ modal_desktop_item(loop.index, order_item) }}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if order.status == order.STATUS_PENDING %}
+            <div class="row">
+                <div class="col-sm-12 pull-right">
+                    <div class="alert alert-info">Ваш заказ находится на рассмотрении оператором</div>
+                </div>
+            </div>
+        {% elif order.status == order.STATUS_STOCK_DELIVERY_WAITING %}
+            <div class="row">
+                <div class="col-sm-12 pull-right">
+                    <div class="alert alert-info">Мы ожидаем доставки вашего товара на наши склады в США</div>
+                </div>
+            </div>
+        {% elif order.status in [order.STATUS_DELIVERY_PAYMENT_WAITING, order.STATUS_GOODS_PAYMENT_WAITING] %}
+            {% set invoice = None %}
+            {% if order.status == order.STATUS_DELIVERY_PAYMENT_WAITING %}
+                {% set invoice = order.invoice_consolidation %}
+            {% endif %}
+            {% if order.status == order.STATUS_GOODS_PAYMENT_WAITING %}
+                {% set invoice = order.invoice_purchase %}
+            {% endif %}
+
+            <div class="row">
+                <div class="col-sm-5 pull-right">
+                    <h4>Итого: <span class="text-success">{{ invoice.total }}$</span></h4>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-3 pull-right">
+                    <a href="{{ url_for('cabinet.checkout', invoice_id=invoice.id) }}" class="btn-pay">Оплатить</a>
+                </div>
+                <div class="col-sm-4 pull-right">
+                    <table class="raw table text-right">
+                        {% if order.status == order.STATUS_DELIVERY_PAYMENT_WAITING %}
+                            <tbody>
+                                <tr>
+                                    <td>Общая стоимость доставки</td>
+                                    <td>{{ invoice.delivery_total }}$</td>
+                                </tr>
+                            </tbody>
+                        {% endif %}
+                        {% if order.status == order.STATUS_GOODS_PAYMENT_WAITING %}
+                            <tbody>
+                                <tr>
+                                    <td>Общая стоимость товаров</td>
+                                    <td>{{ invoice.goods_price_total }}$</td>
+                                </tr>
+                                <tr>
+                                    <td>Услуги Sim Sim</td>
+                                    <td>{{ invoice.simsim_commission }}$</td>
+                                </tr>
+                            </tbody>
+                        {% endif %}
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <h4>Итого за все</h4>
+                                </td>
+                                <td>
+                                    <h4>{{ invoice.total }}$</h4>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        {% elif order.status == order.STATUS_CUSTOMER_DELIVERY_WAITING %}
+            <div class="row">
+                <div class="col-sm-12 pull-right">
+                    <div class="alert alert-info">Ваша посылка отправлена. Скоро ее доставят вам лично в руки!</div>
+                </div>
+            </div>
+        {% elif order.status == order.STATUS_FINISHED %}
+            <div class="row">
+                <div class="col-sm-12 pull-right">
+                    <div class="alert alert-success">Спасибо что воспользовались услугами SimSim!</div>
+                </div>
+            </div>
+        {% elif order.status == order.STATUS_REJECTED %}
+            <div class="row">
+                <div class="col-sm-12 pull-right">
+                    <div class="alert alert-danger">Заказ отменен</div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro modal(index, order) %}
+    <div class="modal fade bs-detail-modal-lg-{{ index }} in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-wide" role="document">
+            <div class="modal-content modal-fluid">
+                <div class="modal-header">
+                    <button type="button" class="close modal-close-default" data-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title" id="myModalLabel">Заказ №{{ order.id }}</h4>
+                </div>
+
+                <div class="modal-body modal-padded">
+
+                    {{ modal_mobile_content(order) }}
+
+                    {{ modal_desktop_content(order) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro mobile(orders) %}
+    <div class="cabibet-table-mobile">
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th class="text-center">Дата заказa</th>
+                    <th class="text-center">Инвойс №</th>
+                    <th class="text-center">Кол-во товаров</th>
+                    <th class="text-center">Статус заказ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.created_at.strftime('%Y.%m.%d') }}</td>
+                        <td>
+                            <a data-toggle="modal" data-target=".bs-detail-modal-lg-{{ loop.index0 }}" href="#">{{ order.id }}</a>
+                        </td>
+                        <td>{{ order.items | length }}</td>
+                        <td>{{ order.status_label }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}
+
+{% macro desktop(orders) %}
+    <div class="cabibet-table-desktop">
+        <table class="cabibet table table-hover table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td>Заказ №</td>
+                    {% for order in orders %}
+                        <td><a data-toggle="modal" data-target=".bs-detail-modal-lg-{{ loop.index0 }}" href="#">{{ order.id }}</a></td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td>Кол-во товаров</td>
+                    {% for order in orders %}
+                        <td>{{ order.items | length }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td>Услуга</td>
+                    {% for order in orders %}
+                        <td>{{ order.service_label }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td>Дата заказа</td>
+                    {% for order in orders %}
+                        <td>{{ order.created_at.strftime('%Y-%m-%d %H:%m') }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    <td>Статус заказа</td>
+                    {% for order in orders %}
+                        <td>{{ order.status_label }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}
+
+{% macro pagination(pagination_data) %}
+    {% if pagination_data.total > 1 %}
+        <div class="pull-right">
+            <ul class="pagination">
+                {% for page in range(1, pagination_data.total + 1) %}
+                    <li {% if page == pagination_data.page %} class="active" {% endif %} >
+                        <a href="{{ url_for('cabinet.index', page=page) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endmacro %}
+

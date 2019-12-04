@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% import 'macros/form.html' as form %}
+
+{% block content %}
+<div class="wide-wrapper">
+    <section class="inner-white-bg">
+        <div class="container registration">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h1>
+                        <img class="img-icon" src="/static/img/registration-icon1.png" alt="">
+                        Обновление пароля
+                    </h1>
+                </div>
+                <div class="col-md-9">
+                    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+                        {{ restore_form.csrf_token }}
+                        <input type="hidden" name="restore_token" value="{{ restore_form.restore_token.data }}">
+                        <div class="regForm">
+                            {{ form.render_field(restore_form.password) }}
+                            {{ form.render_field(restore_form.password_confirm) }}
+                        </div>
+                        <div class="caseRight">
+                            <button type="submit" class="btn btn-default ss-btn ss-btn-orange">Обновить пароль</button>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}

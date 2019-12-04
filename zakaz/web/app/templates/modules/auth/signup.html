@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% import 'macros/form.html' as form %}
+
+{% block content %}
+<div class="wide-wrapper">
+    <section class="inner-white-bg">
+        <div class="container registration">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h1>
+                        <img class="img-icon" src="/static/img/registration-icon1.png" alt="">
+                        Регистрация
+                    </h1>
+                </div>
+                <div class="col-md-9">
+                    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+                        {{ signup_form.csrf_token }}
+                        <div class="regForm">
+                            {{ form.render_field(signup_form.name) }}
+                            <div class="semiInput">
+                                {{ form.render_field(signup_form.phone) }}
+                            </div>
+                            <div class="semiInputSec">
+                                {{ form.render_field(signup_form.email) }}
+                            </div>
+                            <div class="clearfix"></div>
+                            {{ form.render_field(signup_form.address) }}
+                            <div class="semiInput">
+                                {{ form.render_field(signup_form.password) }}
+                            </div>
+                            <div class="semiInputSec">
+                                {{ form.render_field(signup_form.password_confirm) }}
+                                <a href="#" class="showPass" data-shown-message="Скрыть пароль" data-hidden-message="Показать пароль">Показать пароль</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="caseLeft">
+                            <p>
+                                Нажимая на кнопку "Зарегистрироваться" вы соглашаетесь
+                                с
+                                <a href="{{ url_for('page.render', slug='agreements') }}" target="_blank">Пользовательским соглашением</a> и
+                                <a href="{{ url_for('page.render', slug='guarantees-insurance') }}" target="_blank">Гарантиями и страховкой</a>
+                            </p>
+                        </div>
+                        <div class="caseRight">
+                            <div class="capcha">
+                                <script type="text/javascript">
+                                    function recaptchaCallback() {
+                                        $('[data-button="do-signup"]').removeAttr('disabled').show();
+                                    }
+                                </script>
+                                {{ signup_form.recaptcha() }}
+                            </div>
+                            <button type="submit" class="btn btn-default ss-btn ss-btn-orange" disabled="disabled" style="display:none" data-button="do-signup">Зарегистрироваться</button>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}
